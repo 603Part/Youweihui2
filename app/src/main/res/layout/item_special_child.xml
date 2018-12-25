@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/item_special_child_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新疆五日游"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/text_color"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/text_color2"
+        android:layout_marginTop="3dp"
+        android:text="至尊漠北探寻北的神奇与梦幻哈尔滨漠河北极村第一湾北红村圣诞村九曲十八湾全"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¥999"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/orange"
+        android:textSize="15sp" />
+</LinearLayout>

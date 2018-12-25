@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/visa_detail_bottom_linear"
+        android:background="@color/default_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/theme">
+
+            <ImageButton
+                android:id="@+id/visa_detail_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@mipmap/ic_back" />
+
+            <TextView
+                android:id="@+id/visa_detail_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="加拿大"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_more" />
+        </RelativeLayout>
+
+        <com.youweihui.tourismstore.view.CustomScrollView
+            android:id="@+id/visa_detail_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/visa_detail_relative"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@color/theme">
+
+                        <TextView
+                            android:id="@+id/visa_detail_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="20dp"
+                            android:text="加拿大多次往返签证[北京送签]"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="44dp"
+                            android:layout_below="@+id/visa_detail_title"
+                            android:layout_centerHorizontal="true">
+
+                            <TextView
+                                android:id="@+id/visa_detail_original"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="20dp"
+                                android:text="¥ 1999/人"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/visa_detail_new"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_toRightOf="@+id/visa_detail_original"
+                                android:text="¥ 999/人"
+                                android:textColor="@color/white"
+                                android:textSize="16dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/visa_detail_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/default_bg"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/visa_detail_tb_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:tabSelectedTextColor="@color/orange" />
+
+                    <ImageView
+                        android:id="@+id/visa_detail_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY" />
+
+                    <LinearLayout
+                        android:id="@+id/home_tail_order_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/default_bg"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="0.5dp"
+                            android:layout_gravity="center"
+                            android:background="@color/gray" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:text="热门路线推荐" />
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="0.5dp"
+                            android:layout_gravity="center"
+                            android:background="@color/gray" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/visa_detail_recycler2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:nestedScrollingEnabled="false" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/visa_detail_tb_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:visibility="invisible"
+                    app:tabSelectedTextColor="@color/orange" />
+            </FrameLayout>
+        </com.youweihui.tourismstore.view.CustomScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/visa_detail_bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_call"
+            android:gravity="center"
+            android:text="电话"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="match_parent"
+            android:background="@color/default_bg" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:drawableTop="@mipmap/ic_ser"
+            android:text="客服" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="match_parent"
+            android:background="@color/default_bg" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:drawableTop="@mipmap/ic_mark"
+            android:text="收藏" />
+
+        <TextView
+            android:id="@+id/visa_detail_start"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:text="开始预订"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

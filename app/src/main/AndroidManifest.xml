@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.youweihui.tourismstore">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--Location start-->
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--用于写入缓存数据到扩展存储卡-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!--Location end-->
+    <application
+        android:name=".application.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BlackAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".ui.activity.ProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.SpecialActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.TailOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.TailListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.EndDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ConfirmOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ReleaseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ArticleDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.VisaDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.OrderWriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ClassifyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.VisaListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.VisaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="5c9b483d2f63c05f08ee28ca6c0a9cd4" />
+
+        <service android:name="com.amap.api.location.APSService" />
+        <service android:name=".location.service.LocationService" />
+
+    </application>
+
+</manifest>

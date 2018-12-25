@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.youweihui.tourismstore.view.CustomScrollView
+        android:id="@+id/shop_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.youweihui.tourismstore.view.BannerView
+                        android:id="@+id/shop_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:background="@color/gray" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
+
+                        <LinearLayout
+                            android:id="@+id/shop_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:background="@color/white"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="center"
+                                android:text="热门爆款" />
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/shop_linear"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="200dp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/shop_img"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_above="@+id/shop_text"
+                                    android:layout_marginLeft="7dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="7dp"
+                                    android:scaleType="fitXY" />
+
+                                <TextView
+                                    android:id="@+id/shop_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/shop_text2"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="最牛逼的鳄鱼包"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:text="999积分"
+                                    android:textColor="@color/orange"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text2"
+                                    android:layout_width="60dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/shp_shop_bg"
+                                    android:gravity="center"
+                                    android:text="兑换"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="200dp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/shop_img2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_above="@+id/shop_text3"
+                                    android:layout_marginLeft="7dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="7dp"
+                                    android:scaleType="fitXY" />
+
+                                <TextView
+                                    android:id="@+id/shop_text3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/shop_text5"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="最牛逼的鳄鱼包"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:text="999积分"
+                                    android:textColor="@color/orange"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text5"
+                                    android:layout_width="60dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/shp_shop_bg"
+                                    android:gravity="center"
+                                    android:text="兑换"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white">
+
+                        <LinearLayout
+                            android:id="@+id/shop_linear1"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:background="@color/white"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="center"
+                                android:text="旅行必备" />
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/shop_linear1"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="200dp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/shop_img3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_above="@+id/shop_text6"
+                                    android:layout_marginLeft="7dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="7dp"
+                                    android:scaleType="fitXY" />
+
+                                <TextView
+                                    android:id="@+id/shop_text6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/shop_text8"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="最牛逼的鳄鱼包"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:text="999积分"
+                                    android:textColor="@color/orange"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text8"
+                                    android:layout_width="60dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/shp_shop_bg"
+                                    android:gravity="center"
+                                    android:text="兑换"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="200dp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/shop_img4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_above="@+id/shop_text9"
+                                    android:layout_marginLeft="7dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="7dp"
+                                    android:scaleType="fitXY" />
+
+                                <TextView
+                                    android:id="@+id/shop_text9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/shop_text11"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="最牛逼的鳄鱼包"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:text="999积分"
+                                    android:textColor="@color/orange"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/shop_text11"
+                                    android:layout_width="60dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/shp_shop_bg"
+                                    android:gravity="center"
+                                    android:text="兑换"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/shop_linear2"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="0.5dp"
+                            android:layout_gravity="center"
+                            android:background="@color/gray" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:text="更多产品" />
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="0.5dp"
+                            android:layout_gravity="center"
+                            android:background="@color/gray" />
+                    </LinearLayout>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/shop_tb_seat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/orange"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="@color/orange" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+
+                    <com.youweihui.tourismstore.view.NoScrollViewPager
+                        android:id="@+id/shop_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/shop_tb_real"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="invisible"
+                app:tabIndicatorColor="@color/orange"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/orange" />
+        </FrameLayout>
+    </com.youweihui.tourismstore.view.CustomScrollView>
+</LinearLayout>

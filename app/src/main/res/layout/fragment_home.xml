@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg"
+    android:orientation="vertical">
+
+    <com.youweihui.tourismstore.view.CustomScrollView
+        android:id="@+id/home_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/home_abroad_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp">
+
+                        <com.youweihui.tourismstore.view.BannerView
+                            android:id="@+id/home_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/gray" />
+
+                        <TextView
+                            android:id="@+id/home_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="35dp"
+                            android:drawableLeft="@mipmap/ic_home_location"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="北京"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="30dp"
+                            android:layout_alignTop="@+id/home_location"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/home_location"
+                            android:background="@drawable/shp_search_bg"
+                            android:drawableLeft="@mipmap/ic_home_search"
+                            android:gravity="center"
+                            android:paddingLeft="6dp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignTop="@+id/home_location"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/ic_home_bell" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recycle3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/home_linear3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/home_recycle3"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="5dp"
+                            android:src="@mipmap/ic_home_auto_img" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <com.youweihui.tourismstore.view.VerticalScrollView
+                                android:id="@+id/home_vertical_scroll"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="3dp"
+                                app:vsl_animDuration="500"
+                                app:vsl_isCusDuration="true"
+                                app:vsl_sleepTime="2000" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/home_tail_order_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:background="@color/white"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="center"
+                                android:textColor="@color/text_color"
+                                android:text="推荐尾单" />
+
+                            <View
+                                android:layout_width="40dp"
+                                android:layout_height="0.5dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/home_recommend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="44dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="10dp"
+                            android:drawablePadding="3dp"
+                            android:drawableRight="@mipmap/ic_home_more"
+                            android:gravity="center"
+                            android:text="更多"
+                            android:textSize="13sp" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/home_tail_order_linear"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/white"
+                            android:overScrollMode="never"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:scrollbars="none" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/default_bg" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/home_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/home_tb_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:layout_marginTop="20dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:tabSelectedTextColor="@color/orange" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_home_more2" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_recycle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="false" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/home_relative2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/home_tb_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:tabSelectedTextColor="@color/orange" />
+
+                <ImageView
+                    android:id="@+id/home_more2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_home_more2" />
+            </RelativeLayout>
+        </FrameLayout>
+    </com.youweihui.tourismstore.view.CustomScrollView>
+</LinearLayout>

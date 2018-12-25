@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/item_tail_order_tab_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_margin="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/ic_item_home_tab"
+            android:gravity="center"
+            android:text="推荐"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/item_home_tab_money"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:background="@drawable/shp_item_home_tab"
+                android:gravity="center"
+                android:text="¥ 1888"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/item_home_tab_money"
+                android:background="@drawable/shp_item_home_tab2"
+                android:singleLine="true"
+                android:text="已省¥ 1888"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:singleLine="true"
+        android:text="改革开放再出发｜从尝鲜到日常 路在脚下 心向远方"
+        android:textColor="@color/gray2"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:singleLine="true"
+        android:text="北戴河+秦皇岛+山海关区3日2晚跟团游"
+        android:textColor="@color/line"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shp_tail_order_tab"
+            android:text="自由行"
+            android:textSize="11sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/default_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shp_tail_order_tab"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/default_blue"
+            android:text="4日游" />
+    </LinearLayout>
+</LinearLayout>

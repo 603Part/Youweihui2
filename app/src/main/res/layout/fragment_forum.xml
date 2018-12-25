@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.youweihui.tourismstore.view.CustomScrollView
+            android:id="@+id/forum_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/fragment_forum_relative"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp">
+
+                            <com.youweihui.tourismstore.view.BannerView
+                                android:id="@+id/forum_banner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/gray" />
+
+                            <TextView
+                                android:id="@+id/forum_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="35dp"
+                                android:drawableLeft="@mipmap/ic_home_location"
+                                android:drawablePadding="5dp"
+                                android:gravity="center"
+                                android:text="目的地"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="220dp"
+                                android:layout_height="30dp"
+                                android:layout_alignTop="@+id/forum_location"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@+id/forum_location"
+                                android:background="@drawable/shp_search_bg"
+                                android:drawableLeft="@mipmap/ic_home_search"
+                                android:gravity="center"
+                                android:paddingLeft="6dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/forum_relative"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.design.widget.TabLayout
+                                android:id="@+id/forum_tb_seat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                app:tabGravity="fill"
+                                app:tabIndicatorColor="@color/orange"
+                                app:tabMaxWidth="0dp"
+                                app:tabMode="fixed"
+                                app:tabSelectedTextColor="@color/orange" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:src="@mipmap/ic_home_more2" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.3dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/forum_recycle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/forum_relative2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/forum_tb_real"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        app:tabIndicatorColor="@color/orange"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="@color/orange" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/ic_home_more2" />
+                </RelativeLayout>
+            </FrameLayout>
+        </com.youweihui.tourismstore.view.CustomScrollView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/forum_release"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_release"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"/>
+</RelativeLayout>

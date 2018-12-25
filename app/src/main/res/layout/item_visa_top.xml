@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp">
+
+    <ImageView
+        android:id="@+id/item_visa_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/item_visa_price"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/item_visa_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/shop_text2"
+        android:layout_marginTop="5dp"
+        android:text="¥999起"
+        android:gravity="center"
+        android:textColor="@color/orange"
+        android:textSize="14dp" />
+</RelativeLayout>
