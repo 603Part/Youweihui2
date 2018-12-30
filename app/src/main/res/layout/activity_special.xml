@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <android.support.v4.widget.NestedScrollView
+    <com.youweihui.tourismstore.view.CustomScrollView
         android:id="@+id/special_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +19,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:background="@color/theme"
+                android:background="@color/transparent"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
@@ -32,6 +30,7 @@
                     android:background="@color/gray" />
 
                 <TextView
+                    android:id="@+id/special_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -117,5 +116,36 @@
                     android:nestedScrollingEnabled="false" />
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+    </com.youweihui.tourismstore.view.CustomScrollView>
+
+    <RelativeLayout
+        android:id="@+id/special_relative"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <RelativeLayout
+            android:id="@+id/special_back2"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_back3" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/special_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="专题活动"
+            android:textColor="@color/gray3"
+            android:textSize="16dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

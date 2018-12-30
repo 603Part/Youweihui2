@@ -175,7 +175,9 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
         super.onHiddenChanged(hidden);
         if (hidden) {
             if (scrollX == 0 && scrollY == 0) {
+
             } else {
+
             }
             scrollX = customScrollView.getScrollX();
             scrollY = customScrollView.getScrollY();

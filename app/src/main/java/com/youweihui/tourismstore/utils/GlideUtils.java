@@ -18,6 +18,6 @@ public class GlideUtils {
     }
 
     public static void showToCircleImageView(Context context, String url, ImageView imageView) {
-        GlideApp.with(context).load(url).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
+        Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
     }
 }

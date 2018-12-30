@@ -1,6 +1,7 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,8 @@ import com.youweihui.tourismstore.adapter.TailOrderTabRecycleAdapter2;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
 import com.youweihui.tourismstore.bean.ShopEntity;
+import com.youweihui.tourismstore.ui.activity.ProductActivity;
+import com.youweihui.tourismstore.ui.activity.TailOrderDetailActivity;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.utils.SpaceItemDecoration;
 import com.youweihui.tourismstore.view.BannerView;
@@ -30,7 +33,7 @@ import butterknife.BindView;
  * Created by ${范泽宁} on 2018/12/10.
  */
 
-public class TailOrderFragment extends BaseFragment {
+public class TailOrderFragment extends BaseFragment implements TailOrderTabRecycleAdapter2.OnItemClickListener,TailOrderTabRecycleAdapter.OnItemClickListener{
 
     //轮播图
     @BindView(R.id.tail_order_banner)
@@ -85,6 +88,10 @@ public class TailOrderFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView2.setAdapter(tabRecycleAdapter2);
         recyclerView.setAdapter(tabRecycleAdapter);
+
+        tabRecycleAdapter2.setOnItemClickListener(this);
+        tabRecycleAdapter.setOnItemClickListener(this);
+
         addData();
         setBannerData();
         setTailOrder();
@@ -273,5 +280,16 @@ public class TailOrderFragment extends BaseFragment {
         tailOrderList.add(entity8);
 
         tabRecycleAdapter.setData(tailOrderList);
+    }
+
+    @Override
+    public void onItemClick(View v, int position, int type) {
+        if (type == 0){
+            Intent intent = new Intent(context, ProductActivity.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(context, TailOrderDetailActivity.class);
+            startActivity(intent);
+        }
     }
 }

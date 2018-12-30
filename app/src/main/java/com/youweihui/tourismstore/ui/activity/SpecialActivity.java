@@ -1,27 +1,38 @@
 package com.youweihui.tourismstore.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.SpecialAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.ForumEntity;
+import com.youweihui.tourismstore.http.RetrofitUtil;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.BannerView;
+import com.youweihui.tourismstore.view.CustomScrollView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class SpecialActivity extends BaseActivity implements BannerView.OnPageViewClicked,SpecialAdapter.OnItemClickListener {
+public class SpecialActivity extends BaseActivity implements BannerView.OnPageViewClicked, SpecialAdapter.OnItemClickListener,CustomScrollView.ScrollViewListener{
 
     @BindView(R.id.special_banner)
     BannerView bannerView;
@@ -32,15 +43,32 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
     @BindView(R.id.special_back)
     ImageButton back;
 
+    @BindView(R.id.special_top_title)
+    TextView topTitle;
+
+    @BindView(R.id.special_title)
+    TextView title;
+
+    @BindView(R.id.special_back2)
+    RelativeLayout back2;
+
+    @BindView(R.id.special_relative)
+    RelativeLayout relativeLayout;
+
+    @BindView(R.id.special_scroll)
+    CustomScrollView customScrollView;
+
     private ArrayList<String> imgList;
 
     private SpecialAdapter adapter;
+
+    private int imageHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        setStatusBarColor(false);
 
         imgList = new ArrayList<>();
 
@@ -51,6 +79,18 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
         recyclerView.setAdapter(adapter);
         bannerView.setOnPageViewClicked(this);
         adapter.setOnItemClickListener(this);
+        customScrollView.setScrollViewListener(this);
+
+        ViewTreeObserver vto = bannerView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                bannerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                imageHeight = bannerView.getHeight();
+                customScrollView.setScrollViewListener(SpecialActivity.this);
+            }
+        });
+
         setData();
     }
 
@@ -75,7 +115,7 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
 
         for (int i = 0; i < 8; i++) {
             ForumEntity forumEntity = new ForumEntity();
-            switch (i){
+            switch (i) {
                 case 0:
                     forumEntity.setImg("http://imgsrc.baidu.com/forum/pic/item/124e510fd9f9d72ac213bca3d92a2834349bbb1f.jpg");
                     break;
@@ -106,10 +146,13 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
         adapter.setData(list2);
     }
 
-    @OnClick({R.id.special_back, R.id.special_nav_text1, R.id.special_nav_text2, R.id.special_nav_text3, R.id.special_nav_text4})
+    @OnClick({R.id.special_back2, R.id.special_back, R.id.special_nav_text1, R.id.special_nav_text2, R.id.special_nav_text3, R.id.special_nav_text4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.special_back:
+                finish();
+                break;
+            case R.id.special_back2:
                 finish();
                 break;
             case R.id.special_nav_text1:
@@ -141,5 +184,51 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
     public void onItemClick(View v, int position, int type) {
         Intent intent = new Intent(this, TailListActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onScrollChanged(CustomScrollView scrollView, int l, int t, int oldl, int oldt) {
+        if (t <= 0) {
+            setStatusBarColor(false);
+            back.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+            topTitle.setVisibility(View.GONE);
+            back2.setVisibility(View.GONE);
+            relativeLayout.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));
+        } else if (t > 0 && t <= imageHeight) {
+            setStatusBarColor(true);
+            float scale = (float) t / imageHeight;
+            float alpha = (255 * scale);
+            back.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+            topTitle.setVisibility(View.VISIBLE);
+            back2.setVisibility(View.VISIBLE);
+            relativeLayout.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+        } else {
+            relativeLayout.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+            back.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+        }
+    }
+
+    private void getData(){
+        HashMap<String, String> map = new HashMap<>();
+        RetrofitUtil.getInstance().getFindMoreGoodsList(map).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.e("SpecialActivity", "onResponse: "+response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }

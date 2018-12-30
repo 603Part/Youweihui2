@@ -44,14 +44,14 @@ public class CalendarView extends ViewFlipper implements GestureDetector.OnGestu
     //    public static final int COLOR_TX_OTHER_MONTH_DAY = Color.parseColor("#ffcccccc"); // 其他月日历数字颜色
     //    public static final int COLOR_TX_THIS_DAY = Color.parseColor("#ff008000"); // 当天日历数字颜色
     //    public static final int COLOR_BG_THIS_DAY = Color.parseColor("#ffcccccc"); // 当天日历背景颜色
-    //    public static final int COLOR_BG_CALENDAR = Color.parseColor("#ffeeeeee"); // 日历背景色
-    public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#00000000"); // 星期标题背景颜色
-    public static final int COLOR_TX_WEEK_TITLE = Color.parseColor("#879298"); // 星期标题文字颜色
+//        public static final int COLOR_BG_CALENDAR = Color.parseColor("#ffeeeeee"); // 日历背景色
+    public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#484848"); // 星期标题背景颜色
+    public static final int COLOR_TX_WEEK_TITLE = Color.parseColor("#ffffff"); // 星期标题文字颜色
     public static final int COLOR_TX_THIS_MONTH_DAY = Color.parseColor("#aa564b4b"); // 当前月日历数字颜色
     public static final int COLOR_TX_OTHER_MONTH_DAY = Color.parseColor("#ffcccccc"); // 其他月日历数字颜色
     public static final int COLOR_TX_THIS_DAY = Color.parseColor("#ff008000"); // 当天日历数字颜色
     public static final int COLOR_BG_THIS_DAY = Color.parseColor("#ffcccccc"); // 当天日历背景颜色
-    public static final int COLOR_BG_CALENDAR = Color.parseColor("#00000000"); // 日历背景色
+    public static final int COLOR_BG_CALENDAR = Color.parseColor("#ffffff"); // 日历背景色
     public static final int COLOR_TX_PRICE = Color.parseColor("#ff991d");//橙色的价格颜色
 
     private GestureDetector gd; // 手势监听器

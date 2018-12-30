@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/default_bg">
 
     <RelativeLayout
         android:id="@+id/goods_detail_title"
@@ -10,6 +11,7 @@
         android:background="@color/theme">
 
         <ImageButton
+            android:id="@+id/goods_detail_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -34,8 +36,47 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/confirm_order_relative"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/confirm_order_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:maxLines="1"
+                android:text="北京中关村1000号"
+                android:textColor="@color/text_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/confirm_order_address"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:text="北京中关村1000号"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_right_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="5dp"
             android:background="@color/white">
 
             <ImageView
@@ -43,33 +84,34 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/ic_call" />
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/goods_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/confirm_order_img"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="义乌购,覆盖义乌国际商贸城一区至五区、篁园服装市场、义乌国际生产资料市场、义乌进口商品城等7.5万商位、300万商品,线上线下对应,交易有保障,找货更轻松" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@+id/confirm_order_img"
-                android:text="30000积分" />
+                android:text="30000积分"
+                android:textColor="@color/red" />
 
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/shp_confirm_order_line"
                 android:orientation="horizontal">
 
@@ -83,6 +125,7 @@
                 <View
                     android:layout_width="0.7dp"
                     android:layout_height="match_parent"
+                    android:layout_margin="0.7dp"
                     android:background="@color/default_bg" />
 
                 <TextView
@@ -95,6 +138,7 @@
                 <View
                     android:layout_width="0.7dp"
                     android:layout_height="match_parent"
+                    android:layout_margin="0.7dp"
                     android:background="@color/default_bg" />
 
                 <TextView
@@ -112,21 +156,31 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:text="合计:" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/red"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="30dp"
-            android:text="合计:               19999" />
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="19999积分" />
 
         <TextView
             android:id="@+id/goods_detail_start"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@color/orange"
             android:gravity="center"
             android:text="提交订单"

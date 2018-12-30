@@ -1,19 +1,28 @@
 package com.youweihui.tourismstore.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.TailListAdapter;
+import com.youweihui.tourismstore.adapter.TailListDialogAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
+import com.youweihui.tourismstore.utils.DensityUtil;
 import com.youweihui.tourismstore.utils.GlideUtils;
+import com.youweihui.tourismstore.utils.TabLayoutUtils;
 import com.youweihui.tourismstore.view.CustomScrollView;
 
 import java.util.ArrayList;
@@ -29,6 +38,18 @@ public class TailListActivity extends BaseActivity {
 
     @BindView(R.id.tail_list_back)
     ImageView back;
+
+    @BindView(R.id.tail_list_city)
+    TextView city;
+
+    @BindView(R.id.tail_list_destination)
+    TextView destination;
+
+    @BindView(R.id.tail_list_nature)
+    TextView nature;
+
+    @BindView(R.id.tail_list_time)
+    TextView time;
 
     @BindView(R.id.tail_list_recycle)
     RecyclerView recyclerView;
@@ -52,7 +73,8 @@ public class TailListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tail_list);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        setStatusBarColor(false);
+
         tabList = new ArrayList<>();
         imgList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -61,6 +83,14 @@ public class TailListActivity extends BaseActivity {
 
         TailListAdapter adapter = new TailListAdapter(new ArrayList<HomeTailOrderEntity>());
         recyclerView.setAdapter(adapter);
+
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                TabLayoutUtils.setIndicator(tabLayout, 50, 50);
+            }
+        });
+
         List<HomeTailOrderEntity> tailOrderList = new ArrayList<>();
 
         HomeTailOrderEntity entity1 = new HomeTailOrderEntity();
@@ -90,14 +120,13 @@ public class TailListActivity extends BaseActivity {
         tailOrderList.add(entity8);
         tailOrderList.add(entity6);
 
-
         adapter.setData(tailOrderList);
 
         tabList.add("默认排序");
         tabList.add("销量最高");
         tabList.add("价格最优");
 
-        GlideUtils.showToImageView(this,imageView,"http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
+        GlideUtils.showToImageView(this, imageView, "http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
 
         setTailOrder();
     }
@@ -135,9 +164,9 @@ public class TailListActivity extends BaseActivity {
                 tabLayout2.setTranslationY(translation);
 
                 if (y > imageView.getHeight()) {
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
                 } else {
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
                 }
             }
         });
@@ -160,12 +189,86 @@ public class TailListActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tail_list_back})
+    @OnClick({R.id.tail_list_back, R.id.tail_list_city, R.id.tail_list_destination, R.id.tail_list_nature, R.id.tail_list_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tail_list_back:
                 finish();
                 break;
+
+            case R.id.tail_list_city:
+                showDialog();
+                break;
+
+            case R.id.tail_list_destination:
+                showDialog();
+                break;
+
+            case R.id.tail_list_nature:
+                showDialog();
+                break;
+
+            case R.id.tail_list_time:
+                showDialog();
+                break;
         }
+    }
+
+    private void showDialog() {
+        final Dialog bottomDialog = new Dialog(this, R.style.BottomDialog);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_list, null);
+        bottomDialog.setContentView(contentView);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) contentView.getLayoutParams();
+        params.width = getResources().getDisplayMetrics().widthPixels - DensityUtil.dp2px(this, 16f);
+        params.bottomMargin = DensityUtil.dp2px(this, 8f);
+        params.topMargin = DensityUtil.dp2px(this, 8f);
+        contentView.setLayoutParams(params);
+        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.setCanceledOnTouchOutside(true);
+        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+
+        bottomDialog.show();
+
+        RecyclerView recyclerView = contentView.findViewById(R.id.dialog_recycle);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final TailListDialogAdapter dialogAdapter = new TailListDialogAdapter(new ArrayList<String>());
+        recyclerView.setAdapter(dialogAdapter);
+
+        List<String> list = new ArrayList<>();
+        list.add("石家庄");
+        list.add("北京");
+        list.add("天津");
+        list.add("沈阳");
+        list.add("内蒙古");
+        list.add("江西");
+        list.add("香港");
+        list.add("南京");
+
+        list.add("石家庄");
+        list.add("北京");
+        list.add("天津");
+        list.add("沈阳");
+        list.add("内蒙古");
+        list.add("江西");
+        list.add("香港");
+        list.add("南京");
+
+        list.add("石家庄");
+        list.add("北京");
+        list.add("天津");
+        list.add("沈阳");
+        list.add("内蒙古");
+        list.add("江西");
+        list.add("香港");
+        list.add("南京");
+        dialogAdapter.setData(list);
+
+        dialogAdapter.setOnItemClickListener(new TailListDialogAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, int type) {
+                city.setText(dialogAdapter.getData().get(position).toString());
+                bottomDialog.dismiss();
+            }
+        });
     }
 }

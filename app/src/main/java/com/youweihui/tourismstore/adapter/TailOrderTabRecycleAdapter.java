@@ -30,8 +30,16 @@ public class TailOrderTabRecycleAdapter extends RecyclerView.Adapter<TailOrderTa
     }
 
     @Override
-    public void onBindViewHolder(viewHolder holder, int position) {
+    public void onBindViewHolder(final viewHolder holder, int position) {
         GlideUtils.showToImageView(context,holder.imageView,list.get(position).getImg());
+        if (onItemClickListener != null) {
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(),1);
+                }
+            });
+        }
     }
 
     @Override
@@ -56,5 +64,15 @@ public class TailOrderTabRecycleAdapter extends RecyclerView.Adapter<TailOrderTa
     public void setData(List<HomeTailOrderEntity> list){
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    private TailOrderTabRecycleAdapter.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position,int type);
+    }
+
+    public void setOnItemClickListener(TailOrderTabRecycleAdapter.OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 }

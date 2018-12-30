@@ -20,8 +20,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -43,6 +41,7 @@
                         android:src="@mipmap/ic_back2" />
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -62,20 +61,36 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="32dp"
                         android:src="@mipmap/ic_share" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/textView2"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shp_end_detail_remind"
+                        android:drawableLeft="@mipmap/ic_home_bell"
+                        android:drawablePadding="3dp"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="7dp"
+                        android:paddingTop="5dp"
+                        android:text="添加尾单提醒"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="148dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center_vertical"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/end_detail_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="图片" />
+                        android:scaleType="fitXY" />
                 </LinearLayout>
 
                 <View
@@ -92,16 +107,10 @@
                     android:scrollbars="none"
                     app:tabSelectedTextColor="@color/orange" />
 
-                <RelativeLayout
+                <com.youweihui.tourismstore.view.NoScrollViewPager
+                    android:id="@+id/end_detail_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/end_detail_recycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:nestedScrollingEnabled="false" />
-                </RelativeLayout>
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <android.support.design.widget.TabLayout

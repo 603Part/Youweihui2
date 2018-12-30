@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -11,6 +13,7 @@
         android:background="@color/theme">
 
         <ImageButton
+            android:id="@+id/goods_detail_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -27,69 +30,87 @@
             android:textSize="16dp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/goods_detail_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/goods_detail_bottom_linear"
         android:layout_below="@+id/goods_detail_title"
-        android:orientation="vertical">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <ImageView
-            android:id="@+id/goods_detail_img"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:scaleType="fitXY" />
+            android:layout_height="wrap_content"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="87dp"
-            android:background="@color/white">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/goods_detail_content"
+            <ImageView
+                android:id="@+id/goods_detail_img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:maxLines="2"
-                android:text="义乌购,覆盖义乌国际商贸城一区至五区、篁园服装市场、义乌国际生产资料市场、义乌进口商品城等7.5万商位、300万商品,线上线下对应,交易有保障,找货更轻松" />
+                android:layout_height="220dp"
+                android:scaleType="fitXY" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="30000积分" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="87dp"
+                android:background="@color/white">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="销量:10010"
-                android:textSize="11sp" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/goods_detail_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/textView"
+                    android:layout_marginTop="11dp"
+                    android:maxLines="2"
+                    android:text="义乌购,覆盖义乌国际商贸城一区至五区、篁园服装市场、义乌国际生产资料市场、义乌进口商品城等7.5万商位、300万商品,线上线下对应,交易有保障,找货更轻松"
+                    android:textColor="@color/text_color" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="30000积分"
+                    android:textColor="@color/red" />
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="销量:10010"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="图片显示区域" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/goods_detail_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/goods_detail_bottom_linear"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -110,10 +131,10 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="3dp"
-            android:gravity="center"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/ic_ser"
+            android:gravity="center"
             android:text="客服" />
 
         <View
@@ -124,10 +145,10 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="3dp"
-            android:gravity="center"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/ic_mark"
+            android:gravity="center"
             android:text="收藏" />
 
         <TextView
