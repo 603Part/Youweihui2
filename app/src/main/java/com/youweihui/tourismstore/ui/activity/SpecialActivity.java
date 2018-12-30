@@ -216,7 +216,7 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
         RetrofitUtil.getInstance().getFindMoreGoodsList(map).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("SpecialActivity", "onResponse: "+response.body());
+                Log.e("SpecialActivity", "onRespo1nse: "+response.body());
             }
 
             @Override
