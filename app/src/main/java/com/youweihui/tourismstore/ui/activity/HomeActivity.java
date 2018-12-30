@@ -16,6 +16,7 @@ import com.youweihui.tourismstore.location.service.LocationImpl;
 import com.youweihui.tourismstore.location.service.LocationServiceProxy;
 import com.youweihui.tourismstore.ui.fragment.ForumFragment;
 import com.youweihui.tourismstore.ui.fragment.HomeFragment;
+import com.youweihui.tourismstore.ui.fragment.MyFragment;
 import com.youweihui.tourismstore.ui.fragment.ShopFragment;
 import com.youweihui.tourismstore.ui.fragment.TailOrderFragment;
 
@@ -33,7 +34,7 @@ import butterknife.BindView;
  * @unfinish [未完成]     [参数说明: 标识]
  * @see [类、类#方法、类#成员]
  */
-public class HomeActivity extends CheckPermissionsActivity implements RadioGroup.OnCheckedChangeListener{
+public class HomeActivity extends CheckPermissionsActivity implements RadioGroup.OnCheckedChangeListener {
 
     //首页
     @BindView(R.id.group_home)
@@ -50,6 +51,10 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
     //商城
     @BindView(R.id.group_shop)
     RadioButton rbShop;
+
+    //个人中心
+    @BindView(R.id.group_my)
+    RadioButton rbMy;
 
     //外部布局
     @BindView(R.id.home_radio_group)
@@ -71,6 +76,9 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
     //商城内容页
     ShopFragment shopFragment;
 
+    //个人中心
+    MyFragment myFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +87,7 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
         orderFragment = (TailOrderFragment) getSupportFragmentManager().findFragmentByTag("order");
         forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forum");
         shopFragment = (ShopFragment) getSupportFragmentManager().findFragmentByTag("shop");
+        myFragment = (MyFragment) getSupportFragmentManager().findFragmentByTag("shop");
         rgHome.setOnCheckedChangeListener(this);
         rbHome.performClick();
     }
@@ -125,6 +134,15 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
                     transaction.show(shopFragment);
                 }
                 break;
+
+            case R.id.group_my:
+                if (myFragment == null) {
+                    myFragment = new MyFragment();
+                    transaction.add(R.id.home_layout_frame, myFragment, "my");
+                } else {
+                    transaction.show(myFragment);
+                }
+                break;
         }
 
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -143,6 +161,10 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
         }
         if (shopFragment != null) {
             transaction.hide(shopFragment);
+        }
+
+        if (myFragment != null) {
+            transaction.hide(myFragment);
         }
     }
 }

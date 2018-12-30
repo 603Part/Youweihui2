@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="170dp">
 
         <ImageView
             android:id="@+id/item_home_tab_list_img"
@@ -58,9 +59,10 @@
         android:id="@+id/item_home_tab_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="10dp"
         android:singleLine="true"
+        android:textSize="14dp"
         android:textColor="@color/gray2"/>
 
     <TextView
@@ -70,6 +72,6 @@
         android:layout_marginLeft="10dp"
         android:text="北戴河+秦皇岛+山海关区3日2晚跟团游"
         android:textColor="@color/line"
-        android:layout_marginBottom="5dp"
-        android:textSize="12sp" />
+        android:layout_marginBottom="8dp"
+        android:textSize="13dp" />
 </LinearLayout>

@@ -60,7 +60,7 @@ public class VisaActivity extends BaseActivity implements VisaTopAdapter.OnItemC
 
         adapter = new VisaTopAdapter(new ArrayList<VisaEntity>());
         listAdapter = new VisaBottomAdapter(new ArrayList<VisaBottomEntity>());
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, 0, true));
         recyclerView.setHasFixedSize(true);

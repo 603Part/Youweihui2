@@ -30,7 +30,7 @@ public class TailOrderTabRecycleAdapter2 extends RecyclerView.Adapter<TailOrderT
     }
 
     @Override
-    public void onBindViewHolder(viewHolder holder, int position) {
+    public void onBindViewHolder(final viewHolder holder, int position) {
 //        ImageLoader.showToImageView(context,holder.imageView,list.get(position).getImg());
         switch (position) {
             case 0:
@@ -70,6 +70,14 @@ public class TailOrderTabRecycleAdapter2 extends RecyclerView.Adapter<TailOrderT
                 holder.textView1.setBackgroundResource(R.mipmap.ic_home_12);
                 break;
         }
+        if (onItemClickListener != null) {
+            holder.textView1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(),0);
+                }
+            });
+        }
     }
 
     @Override
@@ -94,5 +102,15 @@ public class TailOrderTabRecycleAdapter2 extends RecyclerView.Adapter<TailOrderT
     public void setData(List<ShopEntity> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    private TailOrderTabRecycleAdapter2.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position,int type);
+    }
+
+    public void setOnItemClickListener(TailOrderTabRecycleAdapter2.OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 }

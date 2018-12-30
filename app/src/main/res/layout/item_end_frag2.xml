@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginBottom="3dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/item_end_frag2_img"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/item_end_frag2_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_end_frag2_content"
+        android:layout_below="@+id/item_end_frag2_content"
+        android:layout_marginTop="10dp"
+        android:maxEms="15"
+        android:textColor="@color/text_color"
+        android:text="浅子影"
+        android:textSize="13sp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/item_forum2_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_end_frag2_name"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/item_end_frag2_name"
+        android:text="2108-04-06 14:41"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/item_end_frag2_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/item_end_frag2_img"
+        android:layout_toEndOf="@+id/item_end_frag2_img"
+        android:layout_toRightOf="@+id/item_end_frag2_img"
+        android:lines="2"
+        android:textColor="@color/text_color"
+        android:text="自从有了抖音，每天过着帝王般的生活，有人献歌献舞、表演才艺、朕还要挨个儿评阅点评盖红章，甚是劳累啊。"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/item_end_frag2_eye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_end_frag2_img"
+        android:layout_toRightOf="@+id/item_end_frag2_img"
+        android:drawableLeft="@mipmap/ic_eye"
+        android:drawablePadding="5dp"
+        android:text="568659"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/item_end_frag2_praise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_end_frag2_eye"
+        android:layout_toEndOf="@+id/item_end_frag2_eye"
+        android:layout_toRightOf="@+id/item_end_frag2_eye"
+        android:drawableLeft="@mipmap/ic_praise"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="4dp"
+        android:text="213124"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/item_end_frag2_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_end_frag2_praise"
+        android:layout_toEndOf="@+id/item_end_frag2_praise"
+        android:layout_toRightOf="@+id/item_end_frag2_praise"
+        android:drawableLeft="@mipmap/ic_reply"
+        android:layout_marginLeft="10dp"
+        android:drawablePadding="3dp"
+        android:text="1234"
+        android:textSize="11sp" />
+</RelativeLayout>

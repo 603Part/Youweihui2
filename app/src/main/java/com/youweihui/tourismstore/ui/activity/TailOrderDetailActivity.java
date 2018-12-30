@@ -72,7 +72,8 @@ public class TailOrderDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tail_order_detail);
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        setStatusBarColor(false);
 
         GlideUtils.showToImageView(this, imageView, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545417741414&di=4527223a7d4259721b48e6781a2ab24b&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F38dbb6fd5266d016c2a2ac069c2bd40735fa3560.jpg");
 
@@ -98,7 +99,6 @@ public class TailOrderDetailActivity extends BaseActivity {
         tabList.add("详细行程");
         tabList.add("费用说明");
         tabList.add("预定指南");
-        tabList.add("旅游景点");
         tabList.add("产品评论");
 
         for (int i = 0; i < tabList.size(); i++) {
@@ -128,9 +128,11 @@ public class TailOrderDetailActivity extends BaseActivity {
                 int translation = Math.max(y, tabLayout.getTop());
                 tabLayout2.setTranslationY(translation);
                 if (y > relativeLayout.getHeight()) {
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    setStatusBarColor(true);
                 } else {
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_LAYOUT_FLAGS);
+//                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_LAYOUT_FLAGS);
+                    setStatusBarColor(false);
                 }
             }
         });

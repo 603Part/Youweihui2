@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/ic_bitmap"
+            android:drawablePadding="5dp"
+            android:text="签证"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="可在国内办，或到普吉岛班落地签证" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:background="@drawable/shp_end_detail_bg"
+        android:textSize="13dp"
+        android:text="前往谢赫扎耶德大清真寺，惊叹于举世闻名的地标建筑，在阿布扎比法拉利世界体验全球速度最快的过山车，乘坐快艇穿梭于阿联酋首都的迷人海岸线，在阿哈弗拉滑沙时聆听大风的呼啸声，或漫步于艾恩清爽绿洲，尽享内心的平和与宁静。" />
+</LinearLayout>
