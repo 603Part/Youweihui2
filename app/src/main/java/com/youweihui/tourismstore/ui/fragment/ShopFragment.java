@@ -3,6 +3,7 @@ package com.youweihui.tourismstore.ui.fragment;
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -11,6 +12,10 @@ import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopTabAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
+import com.youweihui.tourismstore.net.Const;
+import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.request.SubmitRequest;
+import com.youweihui.tourismstore.net.response.BaseResponse;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
@@ -19,6 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * Created by ${范泽宁} on 2018/12/10.
@@ -62,7 +72,7 @@ public class ShopFragment extends BaseFragment {
     private ShopTabAdapter tabAdapter;
 
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
-
+    private IntegralClient integralClient = new IntegralClient();
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_shop;
@@ -74,6 +84,7 @@ public class ShopFragment extends BaseFragment {
         titleList = new ArrayList<>();
         fragments = new ArrayList<>();
         addData();
+        initData();
         setBannerData();
 
         tabAdapter = new ShopTabAdapter(getActivity().getSupportFragmentManager(), fragments, titleList);
@@ -138,6 +149,30 @@ public class ShopFragment extends BaseFragment {
         seatLayout.setupWithViewPager(viewPager);
         realLayout.setupWithViewPager(viewPager);
         tabAdapter.setData(fragments, titleList);
+    }
+
+    private static final String TAG = "ShopFragment";
+    private void initData() {
+
+        SubmitRequest submitRequest = new SubmitRequest();
+        submitRequest.setToken(Const.TOKEN);
+        submitRequest.setAddressId(1);
+        submitRequest.setIntegralGoodsId(1);
+        submitRequest.setNumber(1);
+
+        integralClient.submitorderCall(submitRequest).enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                String msg = response.body().getMsg();
+                String code = response.body().getCode();
+                Log.d(TAG, "onResponse: " + msg + code);
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     private void setBannerData() {
