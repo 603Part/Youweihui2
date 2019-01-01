@@ -2,7 +2,7 @@ package com.youweihui.tourismstore.net.request;
 
 import retrofit2.http.Field;
 
-public class SubmitRequest extends BaseRequest{
+public class SubmitRequest{
     private int addressId;
     private int integralGoodsId;
     private int number;

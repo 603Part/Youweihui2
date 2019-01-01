@@ -2,6 +2,7 @@ package com.youweihui.tourismstore.net.client;
 
 import com.youweihui.tourismstore.net.Const;
 import com.youweihui.tourismstore.net.api.IntegralAPI;
+import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.request.SubmitRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 
@@ -21,7 +22,7 @@ public class IntegralClient extends BaseClient {
     public Call<BaseResponse> submitorderCall(int addressId,int goodsId,int num) {
         return retrofit.submitorderCall(Const.TOKEN,addressId, goodsId, num);
     }
-    public Call<BaseResponse> submitorderCall(SubmitRequest submitRequest) {
-        return retrofit.submitorderCall(submitRequest);
+    public Call<BaseResponse> submitorderCall(GoodsRequest submitRequest) {
+        return retrofit.submitorderCall(Const.TOKEN,submitRequest);
     }
 }

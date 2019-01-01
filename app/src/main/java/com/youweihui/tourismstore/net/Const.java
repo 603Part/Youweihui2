@@ -1,7 +1,7 @@
 package com.youweihui.tourismstore.net;
 
 public interface Const {
-    String HOST = "http://47.99.115.8:8184/travel_api/";
+    String HOST = "http://47.99.115.8:8184/travel-api/";
     String URL = HOST + "api/app/integral/";
-    String TOKEN = "1583cb1daf1b43acbe1db3fea67af155";
+    String TOKEN = "658577a278e34cab99cd8e5ba3b6aba6";
 }

@@ -14,6 +14,7 @@ import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
 import com.youweihui.tourismstore.net.Const;
 import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.request.SubmitRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 import com.youweihui.tourismstore.utils.GlideUtils;
@@ -154,13 +155,15 @@ public class ShopFragment extends BaseFragment {
     private static final String TAG = "ShopFragment";
     private void initData() {
 
-        SubmitRequest submitRequest = new SubmitRequest();
-        submitRequest.setToken(Const.TOKEN);
-        submitRequest.setAddressId(1);
-        submitRequest.setIntegralGoodsId(1);
-        submitRequest.setNumber(1);
+//        SubmitRequest submitRequest = new SubmitRequest();
+//        submitRequest.setAddressId(1);
+//        submitRequest.setIntegralGoodsId(1);
+//        submitRequest.setNumber(1);
 
-        integralClient.submitorderCall(submitRequest).enqueue(new Callback<BaseResponse>() {
+        GoodsRequest goodsRequest = new GoodsRequest();
+        goodsRequest.setGoodsId(1);
+
+        integralClient.submitorderCall(goodsRequest).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 String msg = response.body().getMsg();
