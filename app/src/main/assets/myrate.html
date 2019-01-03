@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>评论</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="rate" class="mylist goodlist">
+			<ul class="toptab">
+				<li class="on" id="1">产品点评</li>
+				<li id="2">文章点评</li>
+			</ul>
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+						<div class="ordermoney">订单金额：<span class="red">￥123 //如果是文章隐藏</span></div> 
+						<div class="ratedegree">评价等级：<span id="rating"  class="bui-rating"></span>//如果是文章隐藏</div>
+						
+					</div>
+				</div>
+				<div class="bottomtwo">
+					<p>我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论</p>
+					<p>2014-12-12</p>	
+				</div>
+			</div>
+			
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+						<div class="ordermoney">订单金额：<span class="red">￥123 </span></div> 
+						<div class="ratedegree">评价等级：<span id="rating1"  class="bui-rating"></span></div>
+					</div>
+				</div>
+				<div class="bottomtwo">
+					<p>我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论</p>
+					<p>2014-12-12</p>	
+				</div>
+			</div>
+			
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+  		//切换tab
+				$('.toptab li').click(function(e){
+					$(this).addClass('on').siblings().removeClass('on');
+					if(e.target.id==1){
+						$('.ordermoney,.ratedegree').show()
+					}else{
+						$('.ordermoney,.ratedegree').hide()
+					}
+				})
+	     // 展示
+    var uiRating = bui.rating({
+        id: "#rating",
+        disabled: true,
+        value: 4
+    });
+    var uiRating = bui.rating({
+        id: "#rating1",
+        disabled: true,
+        value: 3
+    });
+	    
+  	})
+  </script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>我的消息提醒</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="mytidings">
+			<div class="tab">
+				<span class="on">评论消息</span>
+				<span>系统消息</span>
+			</div>
+			<ul>
+				<li>
+					<img src="images/pic1.png" alt="" class="left" />
+					<div class="middle">
+						<div class="name">王大安</div>
+						<div class="font">好轻</div>
+						<div class="time">上午10：40</div>
+					</div>
+					<img src="images/pic1.png" alt="" class="right" />
+				</li>
+				<li>
+					<img src="images/pic1.png" alt="" class="left" />
+					<div class="middle">
+						<div class="name">王大安</div>
+						<div class="font">好轻</div>
+						<div class="time">上午10：40</div>
+					</div>
+					<img src="images/pic1.png" alt="" class="right" />
+				</li>
+			</ul>
+			<div class="bui-btn" style="position: fixed;bottom: 0;width: 100%;left: 0;">清空</div>
+		</div>	
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	$('.tab span').click(function(){
+  		$(this).addClass('on').siblings().removeClass('on');
+  	})
+  	bui.ready(function() {
+  		// 所有控件及方法需要在这里执行
+  	
+  	})
+  </script>
+</html>

@@ -29,8 +29,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +85,7 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
     private IntegralClient integralClient = new IntegralClient();
+    private Disposable disposable;
 
     @Override
     protected int getLayoutResId() {
@@ -158,38 +161,46 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void getData() {
         super.getData();
         EmptyRequest emptyRequest = new EmptyRequest();
-        integralClient.getFindRecommendGoods(emptyRequest)
+        disposable = integralClient.getFindRecommendGoods(emptyRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FindRecommendGoodsBean>() {
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .subscribe(bean -> {
+                    List<View> list = new ArrayList<>();
+                    for (int i = 0; i < bean.getBannerList().size(); i++) {
+                        ImageView imageView = new ImageView(getActivity());
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
+                        list.add(imageView);
                     }
-
-                    @Override
-                    public void onNext(FindRecommendGoodsBean bean) {
-                        List<View> list = new ArrayList<>();
-                        for (int i = 0; i < bean.getBannerList().size(); i++) {
-                            ImageView imageView = new ImageView(getActivity());
-                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                            GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
-                            list.add(imageView);
-                        }
-                        bannerView.setPageViewPics(list);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
+                    bannerView.setPageViewPics(list);
+                }, fzn -> {
+                    Log.d(TAG, "getData: ");
                 });
+//        integralClient.getFindRecommendGoods(emptyRequest)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<FindRecommendGoodsBean>() {
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(FindRecommendGoodsBean bean) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
 
     @Override
@@ -200,6 +211,14 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         } else {
 
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 

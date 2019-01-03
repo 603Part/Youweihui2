@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<title>新增地址</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="css/bui.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+
+	<body>
+		<div id="personinfo" style="height: 100vh;">
+			<h3 class="section-title">基本信息</h3>
+			<ul class="bui-list">
+				<li class="bui-btn bui-box clearactive">
+					<label class="bui-label">联系人:</label>
+					<div class="span1">
+						<div class="bui-input user-input">
+							<input type="text" value="" placeholder="姓名">
+						</div>
+					</div>
+				</li>
+				<li class="bui-btn bui-box clearactive">
+					<label class="bui-label">手机号:</label>
+					<div class="span1">
+						<div class="bui-input">
+							<input type="number" placeholder="手机号">
+						</div>
+					</div>
+				</li>
+				<li class="bui-btn bui-box clearactive">
+					<label class="bui-label">性别:</label>
+					<div id="select" style="width: 5rem;color: #666;" class="bui-select">男</div>
+					<i class="icon-listright"></i>
+				</li>
+			</ul>
+			<h3 class="section-title">地址信息</h3>
+			<ul class="bui-list">
+				<li id="chooseCity" class="bui-btn bui-box clearactive">
+					<label class="bui-label" style="padding: 0.1rem 0;">城市选择</label>
+					<div style="width: 5rem;">
+						<div class="bui-box" >
+							<div class="selected-val" style="color: #666;"></div>&nbsp;
+							<div class="selected-val" style="color: #666;"></div>&nbsp;
+							<div class="selected-val" style="color: #666;"></div>
+						</div>
+					</div>
+					<i class="icon-listright"></i>
+				</li>
+				<li class="bui-btn bui-box clearactive">
+					<label class="bui-label">详细地址:</label>
+					<div class="span1">
+						<div class="bui-input">
+							<input type="text" placeholder="详细地址">
+						</div>
+					</div>
+				</li>
+			</ul>
+			<h3 class="section-title">&nbsp;</h3>
+			<div class="bui-btn  orange" style="width: 6.5rem;margin-left: 0.5rem;margin-top: 0.6rem;border-radius: 0.12rem;">保存</div>
+		</div>
+	</body>
+	<script src="js/zepto.js"></script>
+	<script src="js/bui.js"></script>
+	<script>
+		bui.ready(function() {
+			// 所有控件及方法需要在这里执行
+			//动态绑定男女
+			var uiSelect = bui.select({
+				trigger: "#select",
+				title: "请您选择性别",
+				type: "radio",
+				data: [{
+					"name": "男",
+					"value": "1"
+				}, {
+					"name": "女",
+					"value": "2"
+				}]
+
+			});
+			// 地区选择
+			var citySelect = null;
+			loader.import("js/citys.js", function() {
+
+				// 普通初始化
+				citySelect = bui.levelselect({
+					data: citys,
+					title: "所在地区",
+					log: true,
+					trigger: ".selected-val",
+					level: 3,
+					field: {
+						name: "n",
+						data: ["c", "a"],
+					}
+				})
+
+			})
+
+			$("#chooseCity").on("click", function() {
+				citySelect.show();
+			})
+
+		});
+	</script>
+
+</html>

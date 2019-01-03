@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>个人中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="personal" style="padding-bottom: 1.2rem;">
+			<div class="topinfo">
+				<img class="topbg" src="images/pic1.png"/>
+				<div class="uesr">
+					<img class="photo" src="images/wx.png"/>
+					<div><a href="login.html">登录</a> / <a href="register.html">注册</a></div>
+				</div>
+			</div>
+			<div class="three">
+				<div>
+					<div >
+						<img src="images/dngdan.png" alt="" />
+					</div>
+					<div>
+						<p><a href="mylist.html">我的订单</a></p>
+						<span class="font">15个</span>	
+					</div>
+				</div>
+				<div>
+					<div >
+						<img src="images/jifen.png" alt="" />
+					</div>
+					<div>
+						<p><a href="myscore.html">积分</a></p>
+						<span class="font">0分</span>	
+					</div>
+				</div>
+				<div>
+					<div >
+						<img src="images/youhuiquan.png" alt="" />
+					</div>
+					<div>
+						<p><a href="coupon.html">优惠券</a></p>
+						<span class="font">2张</span>	
+					</div>
+				</div>
+			</div>
+			
+			<ul class="bui-list personlist">
+            <a class="bui-btn bui-box" href="weidanlist.html">
+                <img src="images/tixing.png"/>
+                <div class="span1">尾单提醒 </div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="outpsinfo.html">
+                <img src="images/chuxing.png"/>
+                <div class="span1">出行信息 </div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="mycollect.html">
+                <img src="images/shoucang.png"/>
+                <div class="span1">我的收藏</div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="seelist.html">
+                <img src="images/zuji.png"/>
+                <div class="span1">浏览记录</div>
+                <i class="icon-listright"></i>
+            </a>
+        </ul>
+        <ul class="bui-list personlist" >
+            <a class="bui-btn bui-box" href="myrate.html">
+                <img src="images/dianping.png"/>
+                <div class="span1">我的点评 </div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="myfabu.html">
+                <img src="images/fabu.png"/>
+                <div class="span1">我的发布</div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="mytidings.html">
+                <img src="images/xiaoxi.png"/>
+                <div class="span1">消息提醒</div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="address.html">
+                <img src="images/dizhi.png"/>
+                <div class="span1">我的地址</div>
+                <i class="icon-listright"></i>
+            </a>
+        </ul>
+        <ul class="bui-list personlist">
+            <a class="bui-btn bui-box" href="repwd.html">
+                <img src="images/mima.png"/>
+                <div class="span1">修改密码 </div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="set.html">
+                <img src="images/shezhi.png"/>
+                <div class="span1">系统设置</div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box" href="about.html">
+                <img src="images/women.png"/>
+                <div class="span1">关于我们</div>
+                <i class="icon-listright"></i>
+            </a>
+            <a class="bui-btn bui-box yaoqing" href="###">
+                <img src="images/fenxuiang.png"/>
+                <div class="span1">邀请好友</div>
+                <i class="icon-listright"></i>
+            </a>
+        </ul>
+
+        <!-- 3. 给菜单加一个href链接地址 -->
+			
+
+		</div>	
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+  	// 所有控件及方法需要在这里执行
+  		$('.yaoqing').click(function(){
+  			bui.hint({ appendTo:"#personal", content:"点击右上角分享",  position:"center" , effect:"fadeInDown"})
+  		})
+  	})
+  </script>
+</html>

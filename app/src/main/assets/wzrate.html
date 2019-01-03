@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>评论</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="rate">
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+					</div>
+				</div>
+				<div class="bottom">
+					<div class="money">
+						<b>订单金额：</b><span class="red">￥1252</span>
+					</div>
+				</div>
+			</div>
+			 <div class="bui-input textarea">
+            <textarea placeholder="点评一下吧"  cols="30" rows="10"></textarea>
+        </div>
+        <div class="section-title">图片添加</div>
+        <div id="facePhoto" class="bui-upload bui-fluid-space-4">
+            <div class="span1 addkuang">
+                <div class="bui-btn addbtn">
+                    <i class="icon-plus xlarge"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bui-btn orange">点评</div>
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+	  	// 所有控件及方法需要在这里执行
+	  	
+	  	// 拍照图片上传
+    var $facePhoto = $("#facePhoto");
+    var uiUpload = bui.upload();
+    
+    $(".bui-upload .bui-btn").on("click",function () {
+        uiUpload.add({
+            "from": "",
+            "onSuccess": function (val,data) {
+            	// 展示本地图片
+            	var url = window.URL.createObjectURL(val[0]);
+                    $facePhoto.prepend(templatePhoto(url))
+                // 也可以直接调用start上传图片
+//               uiUpload.start({
+//				            url:"http://eid.bingosoft.net:83/share/apis/upload/image",
+//				            onSuccess:function (data) {
+//				                console.log(data)
+//				                //显示上传以后的图片
+//				            },
+//				            onFail:function (data) {
+//				                bui.alert(data)
+//				            }
+//				        })
+            }
+        })
+    })
+
+    function templatePhoto(url) {
+        return `<div class="span1 addkuang">
+                <div class="bui-upload-thumbnail delbtn"><img src="${url}" alt="" /><i class="icon-removefill"></i></div>
+            </div>`
+    }
+
+	    // 删除选择的文件
+	    $facePhoto.on("click",".icon-removefill",function (e) {
+	        uiUpload.clear();
+	        $(this).parents(".span1").remove();
+	        e.stopPropagation();
+	    })
+	    
+	    
+	    
+	    
+  	})
+  </script>
+</html>

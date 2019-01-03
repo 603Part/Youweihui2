@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>评论</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="rate" class="mylist">
+			<ul class="toptab">
+				<li class="on">全部订单</li>
+				<li>待处理</li>
+				<li>待出行</li>
+				<li>已完成</li>
+				<li>待评价</li>
+			</ul>
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+					</div>
+				</div>
+				<div class="bottom">
+					<div class="money">
+						<b>订单金额：</b><span class="red">￥1252</span>
+					</div>
+					<div class="status">待支付</div>	
+				</div>
+			</div>
+			
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+					</div>
+				</div>
+				<div class="bottom">
+					<div class="money">
+						<b>订单金额：</b><span class="red">￥1252</span>
+					</div>
+					<div class="status">待支付</div>	
+				</div>
+			</div>
+			
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+  		//切换tab
+				$('.toptab li').click(function(){
+					$(this).addClass('on').siblings().removeClass('on');
+				})
+	    
+	    
+  	})
+  </script>
+</html>

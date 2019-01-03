@@ -82,6 +82,13 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.EndDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity
             android:name=".ui.activity.GoodsDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleTheme">
