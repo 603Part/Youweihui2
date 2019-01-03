@@ -17,7 +17,6 @@ import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.SpecialAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.ForumEntity;
-import com.youweihui.tourismstore.http.RetrofitUtil;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
@@ -209,26 +208,5 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
             back.setVisibility(View.GONE);
             title.setVisibility(View.GONE);
         }
-    }
-
-    private void getData(){
-        HashMap<String, String> map = new HashMap<>();
-        RetrofitUtil.getInstance().getFindMoreGoodsList(map).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("SpecialActivity", "onRespo1nse: "+response.body());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getData();
     }
 }
