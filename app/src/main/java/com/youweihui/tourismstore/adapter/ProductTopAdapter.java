@@ -34,6 +34,7 @@ public class ProductTopAdapter extends RecyclerView.Adapter<ProductTopAdapter.vi
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
 //        ImageLoader.showToImageView(context,holder.imageView,list.get(position).getImg());
+            holder.textView1.setText(list.get(position).getText());
         if (onItemClickListener!=null){
             holder.textView1.setOnClickListener(new View.OnClickListener() {
                 @Override

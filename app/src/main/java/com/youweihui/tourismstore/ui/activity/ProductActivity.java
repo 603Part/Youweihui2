@@ -83,6 +83,7 @@ public class ProductActivity extends BaseActivity implements ProductTabAdapter.O
         ShopEntity shopEntity8 = new ShopEntity();
         ShopEntity shopEntity9 = new ShopEntity();
         ShopEntity shopEntity10 = new ShopEntity();
+        shopEntity10.setText("更多");
 //        ShopEntity shopEntity11 = new ShopEntity();
 //        ShopEntity shopEntity12 = new ShopEntity();
 //        ShopEntity shopEntity13 = new ShopEntity();
@@ -109,7 +110,6 @@ public class ProductActivity extends BaseActivity implements ProductTabAdapter.O
         tabList.add("上海");
         tabList.add("广州");
         tabList.add("北京");
-        tabList.add("更多地方");
 
         List<HomeTailOrderEntity> tailOrderList = new ArrayList<>();
         HomeTailOrderEntity entity1 = new HomeTailOrderEntity();

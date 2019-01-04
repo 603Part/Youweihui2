@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>注册</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div class="logininput">
+				<ul class="bui-list loginbox">
+	            <li class="bui-btn bui-box clearactive">
+	                <label class="bui-label">帐号:</label>
+	                <div class="span1">
+	                    <div class="bui-input user-input">
+	                        <input type="text" value="" placeholder="填写登录账户">
+	                    </div>
+	                </div>
+	            </li>
+	            
+						<li class="bui-btn bui-box clearactive">
+							<label class="bui-label">验证码:</label>
+							<div class="span1">
+								<input type="number" class="bui-input" style="padding-left: 0;" placeholder="请输入验证码" maxlength="4">
+							</div>
+							<div style="padding-top: 0.18rem;padding-bottom: 0.14rem;" class="bui-btn warning-reverse mini ring" id="btnSend">发送验证码</div>
+						</li>
+						<li class="bui-btn bui-box clearactive">
+			                <label class="bui-label" >密码:</label>
+			                <div class="span1">
+			                    <div  class="bui-input">
+			                        <input  type="password" placeholder="请输入密码">
+			                    </div>
+			                </div>
+			            </li>
+			</ul>
+			
+			<input type="button" class="graybtn" value="修改密码" />
+		</div>	
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+  		// 所有控件及方法需要在这里执行
+  		 // 验证码示例
+		    var $btnSend = $("#btnSend");
+		    var timer = bui.timer({
+		            onEnd: function () {
+		                $btnSend.removeClass("disabled").text("重新获取验证码");
+		            },
+		            onProcess: function (e) {
+		                var valWithZero = e.count < 60 ? e.count : e.count;
+		                $btnSend.text(valWithZero+"后重新获取");
+		            },
+		            times: 60
+		        });
+		
+		    $btnSend.on("click",function (argument) {
+		        var hasDisabled = $(this).hasClass("disabled");
+		        if( !hasDisabled ){
+		            $(this).addClass("disabled")
+		            //写发送验证码接口
+		            bui.hint("验证码发送成功")
+		            timer.restart();
+		        }
+		    })
+  	})
+  </script>
+</html>

@@ -1,8 +1,10 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.youweihui.tourismstore.R;
@@ -10,12 +12,14 @@ import com.youweihui.tourismstore.adapter.EndFragment1Adapter;
 import com.youweihui.tourismstore.adapter.EndFragment1BottomAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.EndFragment1Entity;
+import com.youweihui.tourismstore.ui.activity.EndDetailActivity;
 import com.youweihui.tourismstore.utils.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by ${范泽宁} on 2018/12/11.
@@ -51,7 +55,7 @@ public class EndDetailTab1Fragment extends BaseFragment {
         recyclerView.setAdapter(fragment1Adapter);
         recyclerView2.setAdapter(fragment1BottomAdapter);
 
-        GlideUtils.showToImageView(context,topImage,"http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
+        GlideUtils.showToImageView(context, topImage, "http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
 
         List<EndFragment1Entity> list = new ArrayList<>();
         List<EndFragment1Entity> list2 = new ArrayList<>();
@@ -79,5 +83,15 @@ public class EndDetailTab1Fragment extends BaseFragment {
         list.add(entity8);
         fragment1Adapter.setData(list);
         fragment1BottomAdapter.setData(list2);
+    }
+
+    @OnClick({R.id.end_detail_more})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.end_detail_more:
+                Intent intent = new Intent(getContext(), EndDetailActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

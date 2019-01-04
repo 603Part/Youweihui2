@@ -91,8 +91,9 @@ public class MyFragment extends BaseFragment {
                     view.loadUrl(url);
                     return false;
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//                    startActivity(intent);
+                    myWeb.loadUrl(url);
                     return true;
                 }
             }
@@ -114,7 +115,7 @@ public class MyFragment extends BaseFragment {
         myWeb.getSettings().setJavaScriptEnabled(true);
         myWeb.getSettings().setJavaScriptEnabled(true);
         myWeb.getSettings().setDomStorageEnabled(true);
-        myWeb.loadUrl("http://116.62.234.29:8285/document/personal.html");
+        myWeb.loadUrl("file:///android_asset/personal.html");
     }
 
 

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>添加出行人信息</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="addoutinfo">
+			<h3 class="section-title">出行人</h3>
+			<!--地址-->
+			<li class="bui-btn bui-box clearactive">
+					<label class="bui-label"><b>成人1</b></label>
+					<div class="span1">
+						<div class="bui-input">
+							<input type="number" placeholder="请填写出行人出游所持证件号" readonly>
+						</div>
+					</div>
+					<i style="font-size: 0.4rem;" class="icon-edit"></i>
+			</li>
+			<li class="bui-btn bui-box clearactive">
+					<label class="bui-label"><b>成人2</b></label>
+					<div class="span1">
+						<div class="bui-input">
+							<input type="number" placeholder="请填写出行人出游所持证件号" readonly>
+						</div>
+					</div>
+					<i style="font-size: 0.4rem;" class="icon-edit"></i>
+			</li>
+				<div class="bui-btn  orange" style="position: fixed; width: 6.7rem;left: 0.4rem;bottom: 0.4rem;">添加</div>
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+	  	// 所有控件及方法需要在这里执行
+$('.orange').click(function(){
+  			location.href='addtourinfo.html'
+  		})
+  	})
+  </script>
+</html>

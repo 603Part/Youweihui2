@@ -34,7 +34,7 @@
                         <com.youweihui.tourismstore.view.BannerView
                             android:id="@+id/shop_banner"
                             android:layout_width="match_parent"
-                            android:layout_height="220dp"
+                            android:layout_height="180dp"
                             android:background="@color/gray" />
 
                         <RelativeLayout
