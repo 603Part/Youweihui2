@@ -62,7 +62,8 @@
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
                                     android:gravity="center"
-                                    android:text="热门爆款" />
+                                    android:text="热门爆款"
+                                    android:textColor="@color/text_color" />
 
                                 <View
                                     android:layout_width="40dp"
@@ -100,6 +101,7 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
+                                        android:textColor="@color/text_color"
                                         android:text="最牛逼的鳄鱼包"
                                         android:textSize="14dp" />
 
@@ -154,6 +156,7 @@
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
                                         android:text="最牛逼的鳄鱼包"
+                                        android:textColor="@color/text_color"
                                         android:textSize="14dp" />
 
                                     <TextView
@@ -211,7 +214,8 @@
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
                                     android:gravity="center"
-                                    android:text="旅行必备" />
+                                    android:text="旅行必备"
+                                    android:textColor="@color/text_color" />
 
                                 <View
                                     android:layout_width="40dp"
@@ -249,6 +253,7 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
+                                        android:textColor="@color/text_color"
                                         android:text="最牛逼的鳄鱼包"
                                         android:textSize="14dp" />
 
@@ -302,6 +307,7 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
+                                        android:textColor="@color/text_color"
                                         android:text="最牛逼的鳄鱼包"
                                         android:textSize="14dp" />
 

@@ -67,8 +67,6 @@ public abstract class BaseFragment extends LazyFragment {
             } else {
                 getData();
                 setAttribute();
-                initSwipeRefresh();
-                setOnClick();
             }
         }
 //        ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -119,14 +117,6 @@ public abstract class BaseFragment extends LazyFragment {
     }
 
     protected void setAttribute() {
-
-    }
-
-    protected void initSwipeRefresh() {
-
-    }
-
-    protected void setOnClick() {
 
     }
 

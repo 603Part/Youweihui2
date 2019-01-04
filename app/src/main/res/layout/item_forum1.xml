@@ -22,7 +22,6 @@
         android:maxEms="15"
         android:text="浅子影"
         android:textColor="@color/text_color"
-        android:textSize="14sp"
         android:typeface="sans" />
 
     <TextView
@@ -42,9 +41,10 @@
         android:layout_below="@+id/item_forum1_img"
         android:layout_marginLeft="12dp"
         android:lines="2"
+        android:textSize="13dp"
         android:textColor="@color/text_color"
         android:text="自从有了抖音，每天过着帝王般的生活，有人献歌献舞、表演才艺、朕还要挨个儿评阅点评盖红章，甚是劳累啊。"
-        android:textSize="14sp" />
+         />
 
     <TextView
         android:id="@+id/item_forum1_eye"
@@ -106,7 +106,6 @@
         android:maxEms="15"
         android:textColor="@color/text_color"
         android:text="浅子影"
-        android:textSize="13sp"
         android:typeface="sans" />
 
     <TextView
@@ -128,9 +127,9 @@
         android:layout_toEndOf="@+id/item_forum2_img"
         android:layout_toRightOf="@+id/item_forum2_img"
         android:lines="2"
+        android:textSize="13dp"
         android:textColor="@color/text_color"
-        android:text="自从有了抖音，每天过着帝王般的生活，有人献歌献舞、表演才艺、朕还要挨个儿评阅点评盖红章，甚是劳累啊。"
-        android:textSize="15sp" />
+        android:text="自从有了抖音，每天过着帝王般的生活，有人献歌献舞、表演才艺、朕还要挨个儿评阅点评盖红章，甚是劳累啊。" />
 
     <View
         android:id="@+id/view"

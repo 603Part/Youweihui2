@@ -4,12 +4,16 @@ import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
+
 import com.youweihui.tourismstore.adapter.ShopTabAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
@@ -44,7 +48,7 @@ import static android.support.constraint.Constraints.TAG;
  * Created by ${范泽宁} on 2018/12/10.
  */
 
-public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,BannerView.OnPageViewClicked ,ViewTreeObserver.OnGlobalLayoutListener,CustomScrollView.Callbacks {
+public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BannerView.OnPageViewClicked, ViewTreeObserver.OnGlobalLayoutListener, CustomScrollView.Callbacks {
 
     @BindView(R.id.shop_scroll)
     CustomScrollView customScrollView;
@@ -54,6 +58,30 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @BindView(R.id.shop_img)
     ImageView imageView;
+
+    @BindView(R.id.shop_text)
+    TextView textView;
+
+    @BindView(R.id.shop_text3)
+    TextView textView3;
+
+    @BindView(R.id.shop_text1)
+    TextView textView1;
+
+    @BindView(R.id.shop_text6)
+    TextView textView6;
+
+    @BindView(R.id.shop_text7)
+    TextView textView7;
+
+    @BindView(R.id.shop_text9)
+    TextView textView9;
+
+    @BindView(R.id.shop_text10)
+    TextView textView10;
+
+    @BindView(R.id.shop_text4)
+    TextView textView4;
 
     @BindView(R.id.shop_img2)
     ImageView imageView2;
@@ -85,6 +113,7 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
     private IntegralClient integralClient = new IntegralClient();
+
     private Disposable disposable;
 
     @Override
@@ -97,6 +126,86 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         titleList = new ArrayList<>();
         fragments = new ArrayList<>();
         tabAdapter = new ShopTabAdapter(getActivity().getSupportFragmentManager(), fragments, titleList);
+    }
+
+    @Override
+    public void onPageViewClicked(int position) {
+
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onGlobalLayout() {
+        realLayout.setTranslationY(seatLayout.getTop());
+        realLayout.setVisibility(View.VISIBLE);
+        viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+    }
+
+    @Override
+    public void getData() {
+        super.getData();
+        EmptyRequest emptyRequest = new EmptyRequest();
+        disposable = integralClient.getFindRecommendGoods(emptyRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    setData(bean);
+                }, throwable -> {
+
+                });
+    }
+
+    @Override
+    public void onScrollChanged(int x, int y, int oldx, int oldy) {
+        int translation = Math.max(y, seatLayout.getTop());
+        realLayout.setTranslationY(translation);
+        if (y - 50 * 3 > realLayout.getHeight() - 10) {
+
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+    private void setData(FindRecommendGoodsBean bean) {
+
+        List<View> list = new ArrayList<>();
+
+        for (int i = 0; i < bean.getBannerList().size(); i++) {
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
+            list.add(imageView);
+        }
+
+        bannerView.setPageViewPics(list);
+
+        GlideUtils.showToImageView(context, imageView, bean.getHotlist().get(0).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView2, bean.getHotlist().get(1).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView3, bean.getTravellist().get(0).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView4, bean.getTravellist().get(1).getPictureUrl());
+
+        textView.setText(bean.getHotlist().get(0).getGoodsName());
+        textView1.setText(bean.getHotlist().get(0).getIntegral() + "积分");
+        textView4.setText(bean.getHotlist().get(1).getIntegral() + "积分");
+        textView3.setText(bean.getHotlist().get(1).getGoodsName());
+
+        textView6.setText(bean.getTravellist().get(0).getGoodsName());
+        textView9.setText(bean.getTravellist().get(1).getGoodsName());
+        textView7.setText(bean.getTravellist().get(0).getIntegral() + "积分");
+        textView10.setText(bean.getTravellist().get(1).getIntegral() + "积分");
     }
 
     @Override
@@ -125,105 +234,14 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(tabAdapter);
-    }
 
-    @Override
-    protected void setOnClick() {
-        super.setOnClick();
         bannerView.setOnPageViewClicked(this);
         onGlobalLayoutListener = this;
         customScrollView.setCallbacks(this);
         refreshLayout.setOnRefreshListener(this);
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
-    }
 
-    @Override
-    protected void initSwipeRefresh() {
-        super.initSwipeRefresh();
         refreshLayout.setProgressBackgroundColorSchemeResource(R.color.translucentWhite);
         refreshLayout.setColorSchemeResources(R.color.dark_grey, R.color.theme, R.color.translucent);
-    }
-
-    @Override
-    public void onPageViewClicked(int position) {
-
-    }
-
-    @SuppressLint("NewApi")
-    @Override
-    public void onGlobalLayout() {
-        realLayout.setTranslationY(seatLayout.getTop());
-        realLayout.setVisibility(View.VISIBLE);
-        viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
-    }
-
-    @Override
-    public void getData() {
-        super.getData();
-        EmptyRequest emptyRequest = new EmptyRequest();
-        disposable = integralClient.getFindRecommendGoods(emptyRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bean -> {
-                    List<View> list = new ArrayList<>();
-                    for (int i = 0; i < bean.getBannerList().size(); i++) {
-                        ImageView imageView = new ImageView(getActivity());
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                        GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
-                        list.add(imageView);
-                    }
-                    bannerView.setPageViewPics(list);
-                }, fzn -> {
-                    Log.d(TAG, "getData: ");
-                });
-//        integralClient.getFindRecommendGoods(emptyRequest)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<FindRecommendGoodsBean>() {
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(FindRecommendGoodsBean bean) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-    }
-
-    @Override
-    public void onScrollChanged(int x, int y, int oldx, int oldy) {
-        int translation = Math.max(y, seatLayout.getTop());
-        realLayout.setTranslationY(translation);
-        if (y - 50 * 3 > realLayout.getHeight() - 10) {
-
-        } else {
-
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (!disposable.isDisposed()) {
-            disposable.dispose();
-        }
-    }
-
-    @Override
-    public void onRefresh() {
-
     }
 }
