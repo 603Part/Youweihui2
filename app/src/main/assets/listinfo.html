@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>订单详情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body style="background: #fff;">
+		<div id="rate" class="listinfo outpsinfo">
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+					</div>
+				</div>
+				<div class="bottom">
+					<div class="money">
+						<b>订单金额：</b><span class="red">￥1252</span>
+					</div>
+					<div class="status">待支付</div>	
+				</div>
+			</div>
+			<h3>出行人信息</h3>
+			<ul>
+				<li>
+						<p class="info"><span>王不同</span><span class="middle">女</span><span>15632221212</span></p>
+						<p>身份证：130123498912012012</p> 
+						<p>护照：1314313143332</p>
+						<p>邮箱：1213213@qq.com</p>
+				</li>
+				<li>
+						<p class="info"><span>王不同</span><span class="middle">女</span><span>15632221212</span></p>
+						<p>身份证：130123498912012012</p>
+						<p>护照：1314313143332</p>
+						<p>邮箱：1213213@qq.com</p>
+				</li>
+			</ul>
+			<h3>价格信息</h3>
+			<div class="moneyinfo">
+				<div class="infoli">
+					<div>
+						<span>成人</span>
+					</div>
+					<div>
+						<span class="count">180*2</span>
+						<span>￥360</span>
+					</div>
+				</div>
+				<div class="infoli">
+					<div>
+						<span>儿童</span>
+					</div>
+					<div>
+						<span class="count">100*2</span>
+						<span>￥200</span>
+					</div>
+				</div>
+			</div>
+			<div class="ticket">
+					<div>优惠券</div>
+					<div class="tickpeice">-￥360</div>
+			</div>
+			<div class="listbottom">
+				<div class="total">
+					<b>合计：</b>
+					<b class="red">￥900.23</b>
+				</div>
+				<div class="cancel">取消订单</div>
+				<input class="submit" type="submit" value="提交订单" />
+			</div>
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+		// 文字提醒
+    $('.cancel').on("click",function  (argument) {
+        bui.confirm("确定要取消吗？",function (e) {
+            var text = $(e.target).text();
+            if( text == "确定"){
+                console.log("你点击了"+$(e.target).text())
+            }
+        }); 
+    })
+	    
+  	})
+  </script>
+</html>

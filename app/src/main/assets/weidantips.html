@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>尾单提醒编辑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="weidantips">
+			<div class="inputbox">
+				<ul>
+					<li>
+						<div class="change" >
+							<img src="images/change.png"/>
+						</div>						
+						<input type="text" placeholder="出发地" class="go"/>
+						<input type="text" placeholder="目的地" class="to"/>
+					</li>
+					<li>					
+						<div class="label">出发日期</div>
+						<input id="gotime" readonly type="text"  >
+					</li>
+					<li>					
+						<div class="label">返程日期</div>
+						<input id="retime" readonly type="text"  >
+					</li>
+					<li>					
+						<div class="label">预算</div>
+						<select>
+							<option value="">3000-5000</option>
+							<option value="">5000-7000</option>
+						</select>
+					</li>
+				</ul>
+				<div class="bui-btn  orange" style="width: 6rem;font-size: 0.36rem; margin:0.6rem 0 0.6rem 0.35rem;border-radius: 0.12rem;">保存</div>
+			</div>
+			<h3 class="title">历史记录</h3>
+			<div class="record">
+				<div class="recodeli">
+					<div class="goto">上海-北京</div>	
+					<div class="li">
+						<span>出发时间</span>
+						<span>2018-12-15</span>	
+					</div>
+					<div class="li">
+						<span>返程时间</span>
+						<span>2018-12-20</span>	
+					</div>
+					<div class="li">
+						<span>预算</span>
+						<span>3000-5000</span>	
+					</div>
+				</div>
+				
+				<div class="recodeli">
+					<div class="goto">上海-北京</div>	
+					<div class="li">
+						<span>出发时间</span>
+						<span>2018-12-15</span>	
+					</div>
+					<div class="li">
+						<span>返程时间</span>
+						<span>2018-12-20</span>	
+					</div>
+					<div class="li">
+						<span>预算</span>
+						<span>3000-5000</span>	
+					</div>
+				</div>
+				
+			</div>
+		</div>	
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+  		// 所有控件及方法需要在这里执行
+  		//切换出发地
+  		$('.change').click(function(){
+  			if($('.go').val()==''||$('.to').val()==''){
+  				 bui.hint({content:"填写出发地和目的地", position:"top" , effect:"fadeInDown"});
+  			}else{
+//				console.log($('.go').css('left')=='0px')
+	  			if($('.go').css('left')=='0px'){
+	  				$('.go').animate({
+	  					left:'3.35rem',
+	  				})
+	  				$('.to').animate({
+	  					left:'0px',
+	  				})
+	  			}else{
+	  				$('.go').animate({
+	  					left:'0px',
+	  				})
+	  				$('.to').animate({
+	  					left:'3.35rem',
+	  				})
+	  			}
+  			}
+  			//获取出发地和目的地
+  			var go='';
+  			var to='';
+  			$('#weidantips li input').each(function(index){
+  				if($('#weidantips li input').eq(index).css('left')=='0px'){
+  					go=$('#weidantips li input').eq(index).val()
+  				}
+				if($('#weidantips li input').eq(index).css('left')!='0px'){
+					to=$('#weidantips li input').eq(index).val()
+				}
+  			})
+
+  			console.log(go,to)
+
+  		})
+  		
+  		// 出发日期初始化
+			var gotime = $("#gotime");
+			var uiPickerdate = bui.pickerdate({
+				handle: "#gotime",
+				formatValue: "yyyy-MM-dd",
+				cols: {
+					hour: "none",
+					minute: "none",
+					second: "none"
+				},
+				onChange: function(value) {
+					gotime.val(value);
+				}
+			});
+			// 返程日期初始化
+			var retime = $("#retime");
+			var uiPickerdate = bui.pickerdate({
+				handle: "#retime",
+				formatValue: "yyyy-MM-dd",
+				cols: {
+					hour: "none",
+					minute: "none",
+					second: "none"
+				},
+				onChange: function(value) {
+					retime.val(value);
+				}
+			});
+  	})
+  </script>
+</html>

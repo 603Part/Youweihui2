@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>评论</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="rate">
+			<div class="topinfo">
+				<div class="top">
+					<img src="images/pic1.png" alt="" />
+					<div class="right">
+						<h3>标题</h3>
+						<div>下单时间：2018-12-11 15：25</div>
+						<div>订单编号：1313asasdasd</div>
+					</div>
+				</div>
+				<div class="bottom">
+					<div class="money">
+						<b>订单金额：</b><span class="red">￥1252</span>
+					</div>
+				</div>
+			</div>
+			<div class="ratebox">
+				<div class="title">评价</div>
+
+				<div id="rating" class="bui-rating"></div>
+			</div>
+			 <div class="bui-input textarea" style="margin: 0;">
+            <textarea placeholder="点评一下吧"  cols="30" rows="10"></textarea>
+        </div>
+
+        
+        <div class="bui-btn orange">点评</div>
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+	  	// 所有控件及方法需要在这里执行
+	  	 var uiRating = bui.rating({
+            id: "#rating",
+            value: 0
+        });
+
+	    
+	    
+	    
+  	})
+  </script>
+</html>

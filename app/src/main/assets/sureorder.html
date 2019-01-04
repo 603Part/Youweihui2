@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title>确认订单</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="css/bui.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+  <body>
+		<div id="sureorder">
+			<!--地址-->
+			<div class="addr">
+				<div>
+					<p>北京某某街区</p>
+					<div class="pinfo">
+						<span>梁思成</span>
+						<span>15631102525</span>
+					</div>		
+				</div>
+				<div>
+					<i class="icon-listright"></i>
+				</div>
+			</div>	
+			<!--产品信息-->
+			<div class="ordergoodinfo">
+				<div class="left">
+					<img src="images/pic1.png"/>
+				</div>
+				<div class="right">
+					<div class="name">我按的发放扒鸡批发价</div>
+					<div class="pricecount">
+						<span class="red">￥21233.00</span>
+						<div id="uiNumber" class="bui-number"></div>
+					</div>		
+				</div>
+			</div>	
+			<!--底部-->
+			<div class="bottomsub">
+				<div class="left">
+					<span>合计：</span>
+					<span class="red">￥153.00</span>		
+				</div>
+				<div class="bui-btn orange">提交订单</div>
+			</div>		
+		</div>
+  </body>
+  <script src="js/zepto.js"></script>
+  <script src="js/bui.js"></script>
+  <script>
+  	bui.ready(function() {
+	  	// 所有控件及方法需要在这里执行
+	 		// 选择数量
+	    var uiNumber = bui.number({
+	        id: '#uiNumber'
+	    });
+	    
+	    
+  	})
+  </script>
+</html>

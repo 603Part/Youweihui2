@@ -64,7 +64,7 @@ public class EndDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_end_detail);
+        setContentView(R.layout.activity_end_details);
         setStatusBarColor(false);
         tabList = new ArrayList<>();
         imgList = new ArrayList<>();

@@ -45,8 +45,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="30dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="30dp"
                         android:singleLine="true"
                         android:text="泰国(Thailand)"
                         android:textColor="@color/white"
@@ -58,8 +58,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
                         android:layout_marginTop="32dp"
+                        android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_share" />
 
                     <TextView
@@ -71,10 +71,10 @@
                         android:drawableLeft="@mipmap/ic_home_bell"
                         android:drawablePadding="3dp"
                         android:gravity="center"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:paddingRight="7dp"
                         android:paddingTop="5dp"
+                        android:paddingRight="7dp"
+                        android:paddingBottom="5dp"
                         android:text="添加尾单提醒"
                         android:textColor="@color/white" />
                 </RelativeLayout>
@@ -98,28 +98,50 @@
                     android:layout_height="1dp"
                     android:background="@color/default_bg" />
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/end_detail_tb_layout"
+                <ImageView
+                    android:id="@+id/end_detail_img2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:background="@color/yellow"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@mipmap/ic_bell" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:text="环球网军事12月29日报道28日，韩国总统文在寅视察驻扎在京畿道涟川郡的陆军第五步兵师新兵集训队，检查韩军的戒备态势。韩国《中央日报》称，这是文在寅执政以来，首次视察前线部队。在他发表演讲时，背后的屏幕出现了9个汉字：天下无敌，常胜五师团。"
+                        android:textColor="@color/yellow2"
+                        android:textSize="11sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:src="@mipmap/ic_right_arrow2" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/end_detail_recycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
-                    android:scrollbars="none"
-                    app:tabSelectedTextColor="@color/orange" />
-
-                <com.youweihui.tourismstore.view.NoScrollViewPager
-                    android:id="@+id/end_detail_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:scrollbars="none" />
             </LinearLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/end_detail_tb_layout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="invisible"
-                app:tabSelectedTextColor="@color/orange" />
         </FrameLayout>
     </com.youweihui.tourismstore.view.CustomScrollView>
 </LinearLayout>

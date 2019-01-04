@@ -6,4 +6,13 @@ package com.youweihui.tourismstore.bean;
 
 public class ShopEntity {
 
+    private String text = "目的地";
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }
