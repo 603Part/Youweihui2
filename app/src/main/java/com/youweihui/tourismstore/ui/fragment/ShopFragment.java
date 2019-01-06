@@ -1,6 +1,7 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,13 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopTabAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
-import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
-import com.youweihui.tourismstore.net.Const;
+
 import com.youweihui.tourismstore.net.client.IntegralClient;
 import com.youweihui.tourismstore.net.request.EmptyRequest;
 import com.youweihui.tourismstore.net.request.GoodsRequest;
@@ -28,17 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import static android.support.constraint.Constraints.TAG;
 
 /**
  * Created by ${范泽宁} on 2018/12/10.
@@ -54,6 +48,30 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @BindView(R.id.shop_img)
     ImageView imageView;
+
+    @BindView(R.id.shop_text)
+    TextView textView;
+
+    @BindView(R.id.shop_text3)
+    TextView textView3;
+
+    @BindView(R.id.shop_text1)
+    TextView textView1;
+
+    @BindView(R.id.shop_text6)
+    TextView textView6;
+
+    @BindView(R.id.shop_text7)
+    TextView textView7;
+
+    @BindView(R.id.shop_text9)
+    TextView textView9;
+
+    @BindView(R.id.shop_text10)
+    TextView textView10;
+
+    @BindView(R.id.shop_text4)
+    TextView textView4;
 
     @BindView(R.id.shop_img2)
     ImageView imageView2;
@@ -85,7 +103,14 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
     private IntegralClient integralClient = new IntegralClient();
+
     private Disposable disposable;
+
+    private  ShopTabFragment fragment1;
+
+    private  ShopTabFragment fragment2;
+
+    private  ShopTabFragment fragment3;
 
     @Override
     protected int getLayoutResId() {
@@ -97,51 +122,6 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         titleList = new ArrayList<>();
         fragments = new ArrayList<>();
         tabAdapter = new ShopTabAdapter(getActivity().getSupportFragmentManager(), fragments, titleList);
-    }
-
-    @Override
-    protected void setAttribute() {
-
-        titleList.add("默认排序");
-        titleList.add("销量最高");
-        titleList.add("价格最优");
-
-        for (int i = 0; i < titleList.size(); i++) {
-            ShopTabFragment fragment = new ShopTabFragment();
-            seatLayout.addTab(seatLayout.newTab());
-            realLayout.addTab(realLayout.newTab());
-            fragments.add(fragment);
-        }
-
-        realLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
-        seatLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
-        realLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
-        seatLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
-
-        seatLayout.setupWithViewPager(viewPager);
-        realLayout.setupWithViewPager(viewPager);
-        tabAdapter.setData(fragments, titleList);
-
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setCurrentItem(0);
-        viewPager.setAdapter(tabAdapter);
-    }
-
-    @Override
-    protected void setOnClick() {
-        super.setOnClick();
-        bannerView.setOnPageViewClicked(this);
-        onGlobalLayoutListener = this;
-        customScrollView.setCallbacks(this);
-        refreshLayout.setOnRefreshListener(this);
-        viewPager.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
-    }
-
-    @Override
-    protected void initSwipeRefresh() {
-        super.initSwipeRefresh();
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.translucentWhite);
-        refreshLayout.setColorSchemeResources(R.color.dark_grey, R.color.theme, R.color.translucent);
     }
 
     @Override
@@ -165,42 +145,10 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bean -> {
-                    List<View> list = new ArrayList<>();
-                    for (int i = 0; i < bean.getBannerList().size(); i++) {
-                        ImageView imageView = new ImageView(getActivity());
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                        GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
-                        list.add(imageView);
-                    }
-                    bannerView.setPageViewPics(list);
-                }, fzn -> {
-                    Log.d(TAG, "getData: ");
+                    setData(bean);
+                }, throwable -> {
+
                 });
-//        integralClient.getFindRecommendGoods(emptyRequest)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<FindRecommendGoodsBean>() {
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(FindRecommendGoodsBean bean) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
     }
 
     @Override
@@ -222,8 +170,83 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }
     }
 
+    private void setData(FindRecommendGoodsBean bean) {
+
+        List<View> list = new ArrayList<>();
+
+        for (int i = 0; i < bean.getBannerList().size(); i++) {
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            GlideUtils.showToImageView(context, imageView, bean.getBannerList().get(i).getAdvertisingUrl().toString());
+            list.add(imageView);
+        }
+
+        bannerView.setPageViewPics(list);
+
+        GlideUtils.showToImageView(context, imageView, bean.getHotlist().get(0).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView2, bean.getHotlist().get(1).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView3, bean.getTravellist().get(0).getPictureUrl());
+        GlideUtils.showToImageView(context, imageView4, bean.getTravellist().get(1).getPictureUrl());
+
+        textView.setText(bean.getHotlist().get(0).getGoodsName());
+        textView1.setText(bean.getHotlist().get(0).getIntegral() + "积分");
+        textView4.setText(bean.getHotlist().get(1).getIntegral() + "积分");
+        textView3.setText(bean.getHotlist().get(1).getGoodsName());
+
+        textView6.setText(bean.getTravellist().get(0).getGoodsName());
+        textView9.setText(bean.getTravellist().get(1).getGoodsName());
+        textView7.setText(bean.getTravellist().get(0).getIntegral() + "积分");
+        textView10.setText(bean.getTravellist().get(1).getIntegral() + "积分");
+    }
+
+    @Override
+    protected void setAttribute() {
+        titleList.add("默认排序");
+        titleList.add("销量最高");
+        titleList.add("价格最优");
+
+        fragment1 = new ShopTabFragment(0);
+        fragment2 = new ShopTabFragment(1);
+        fragment3 = new ShopTabFragment(2);
+
+        fragment1.setSwipeRefreshLayout(refreshLayout);
+        fragment2.setSwipeRefreshLayout(refreshLayout);
+        fragment3.setSwipeRefreshLayout(refreshLayout);
+
+        fragments.add(fragment1);
+        fragments.add(fragment2);
+        fragments.add(fragment3);
+
+        for (int i = 0; i < titleList.size(); i++) {
+            seatLayout.addTab(seatLayout.newTab());
+            realLayout.addTab(realLayout.newTab());
+        }
+
+        realLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
+        seatLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
+        realLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
+        seatLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
+
+        seatLayout.setupWithViewPager(viewPager);
+        realLayout.setupWithViewPager(viewPager);
+        tabAdapter.setData(fragments, titleList);
+
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setCurrentItem(0);
+        viewPager.setAdapter(tabAdapter);
+
+        bannerView.setOnPageViewClicked(this);
+        onGlobalLayoutListener = this;
+        customScrollView.setCallbacks(this);
+        refreshLayout.setOnRefreshListener(this);
+        viewPager.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+
+        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.translucentWhite);
+        refreshLayout.setColorSchemeResources(R.color.dark_grey, R.color.theme, R.color.translucent);
+    }
+
     @Override
     public void onRefresh() {
-
+        fragment1.refresh();
     }
 }

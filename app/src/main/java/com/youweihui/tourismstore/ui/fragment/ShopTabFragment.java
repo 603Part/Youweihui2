@@ -1,7 +1,9 @@
 package com.youweihui.tourismstore.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,33 +11,42 @@ import android.view.View;
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopTabRecycleAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
-import com.youweihui.tourismstore.bean.ShopTabEntity;
+import com.youweihui.tourismstore.bean.FindRecommendGoodsListBean;
+import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.ui.activity.GoodsDetailActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ${范泽宁} on 2018/12/11.
  */
 
+@SuppressLint("ValidFragment")
 public class ShopTabFragment extends BaseFragment implements ShopTabRecycleAdapter.OnItemClickListener {
 
     @BindView(R.id.shop_tab_recycle)
     RecyclerView recyclerView;
 
-    public static final String TITLE = "tabTitle";
-
     private ShopTabRecycleAdapter recycleAdapter;
 
-    public static ShopTabFragment newInstance(String tabTitle) {
-        Bundle bundle = new Bundle();
-        ShopTabFragment fragment = new ShopTabFragment();
-        bundle.putString(TITLE, tabTitle);
-        fragment.setArguments(bundle);
-        return fragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private Disposable disposable;
+
+    protected boolean isRefreshing;
+
+    private int type;
+
+    private IntegralClient integralClient = new IntegralClient();
+
+    public ShopTabFragment(int type) {
+        this.type = type;
     }
 
     @Override
@@ -45,73 +56,68 @@ public class ShopTabFragment extends BaseFragment implements ShopTabRecycleAdapt
 
     @Override
     protected void initView() {
-        recycleAdapter = new ShopTabRecycleAdapter(new ArrayList<ShopTabEntity>());
-        recyclerView.setLayoutManager(new GridLayoutManager(context,2));
+        recycleAdapter = new ShopTabRecycleAdapter(new ArrayList<>());
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         recyclerView.setAdapter(recycleAdapter);
         recycleAdapter.setOnItemClickListener(this);
-        addData();
-    }
-
-    private void addData(){
-        List<ShopTabEntity> list = new ArrayList<>();
-
-        ShopTabEntity entity1 = new ShopTabEntity();
-        ShopTabEntity entity2 = new ShopTabEntity();
-        ShopTabEntity entity3 = new ShopTabEntity();
-        ShopTabEntity entity4 = new ShopTabEntity();
-        ShopTabEntity entity5 = new ShopTabEntity();
-        ShopTabEntity entity6 = new ShopTabEntity();
-        ShopTabEntity entity7 = new ShopTabEntity();
-        ShopTabEntity entity8 = new ShopTabEntity();
-        ShopTabEntity entity9 = new ShopTabEntity();
-        ShopTabEntity entity10 = new ShopTabEntity();
-        ShopTabEntity entity11 = new ShopTabEntity();
-        ShopTabEntity entity12 = new ShopTabEntity();
-        ShopTabEntity entity13 = new ShopTabEntity();
-        ShopTabEntity entity14 = new ShopTabEntity();
-        ShopTabEntity entity15 = new ShopTabEntity();
-        ShopTabEntity entity16 = new ShopTabEntity();
-        ShopTabEntity entity17 = new ShopTabEntity();
-        ShopTabEntity entity18 = new ShopTabEntity();
-        ShopTabEntity entity19 = new ShopTabEntity();
-        ShopTabEntity entity20 = new ShopTabEntity();
-
-        entity1.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity8.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity2.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-        entity7.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity3.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity4.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity6.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity5.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-
-        list.add(entity1);
-        list.add(entity2);
-        list.add(entity3);
-        list.add(entity4);
-        list.add(entity5);
-        list.add(entity6);
-        list.add(entity7);
-        list.add(entity8);
-        list.add(entity9);
-        list.add(entity10);
-        list.add(entity11);
-        list.add(entity12);
-        list.add(entity13);
-        list.add(entity14);
-        list.add(entity15);
-        list.add(entity16);
-        list.add(entity17);
-        list.add(entity18);
-        list.add(entity19);
-        list.add(entity20);
-
-        recycleAdapter.setData(list);
     }
 
     @Override
     public void onItemClick(View v, int position) {
-        Intent intent = new Intent(context,GoodsDetailActivity.class);
+        Intent intent = new Intent(context, GoodsDetailActivity.class);
+        intent.putExtra("goodsId", recycleAdapter.getData().get(position).getGoodsId()+"");
         startActivity(intent);
+    }
+
+    public void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+        this.swipeRefreshLayout = swipeRefreshLayout;
+    }
+
+    public boolean isRefreshing() {
+        return isRefreshing;
+    }
+
+    public void setRefreshing(boolean refreshing) {
+        isRefreshing = refreshing;
+    }
+
+    public void refresh() {
+        if (isRefreshing())
+            return;
+        setRefreshing(true);
+        new Handler().postDelayed(() -> {
+            setRefreshing(false);
+            if (swipeRefreshLayout != null)
+                swipeRefreshLayout.setRefreshing(false);
+        }, 0);
+    }
+
+    @Override
+    public void getData() {
+        super.getData();
+        GoodsListRequest listRequest = new GoodsListRequest();
+        listRequest.setPage(1);
+        listRequest.setLimit(100);
+        listRequest.setOrderby(type);
+        disposable = integralClient.getFindRecommendGoodsList(listRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    setData(bean);
+                }, throwable -> {
+
+                });
+    }
+
+    private void setData(FindRecommendGoodsListBean bean) {
+        recycleAdapter.setData(bean.getPage().getList());
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

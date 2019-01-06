@@ -27,6 +27,7 @@ import com.youweihui.tourismstore.ui.activity.ArticleDetailActivity;
 import com.youweihui.tourismstore.ui.activity.ReleaseActivity;
 import com.youweihui.tourismstore.utils.DensityUtil;
 import com.youweihui.tourismstore.utils.GlideUtils;
+import com.youweihui.tourismstore.utils.SpaceItemDecoration;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
 
@@ -90,7 +91,7 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
     protected void initView() {
         titleList = new ArrayList<>();
         imgList = new ArrayList<>();
-        recycleAdapter = new ForumTabRecycleAdapter(new ArrayList<ForumEntity>());
+        recycleAdapter = new ForumTabRecycleAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(recycleAdapter);
 

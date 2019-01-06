@@ -19,6 +19,11 @@ import com.youweihui.tourismstore.adapter.GoodsDetailAdapter;
 import com.youweihui.tourismstore.adapter.ShopTabRecycleAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.ShopTabEntity;
+import com.youweihui.tourismstore.net.Const;
+import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.request.GoodsInfoRequest;
+import com.youweihui.tourismstore.net.request.GoodsListRequest;
+import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.utils.GlideUtils;
 
 import java.util.ArrayList;
@@ -26,6 +31,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdapter.OnItemClickListener, NestedScrollView.OnScrollChangeListener {
 
@@ -46,7 +54,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdap
 
     private GoodsDetailAdapter recycleAdapter;
 
+    private Disposable disposable;
+
     private boolean isShow = true;
+
+    private IntegralClient integralClient = new IntegralClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +66,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdap
         setContentView(R.layout.activity_goods_detail);
         GlideUtils.showToImageView(this, imageView, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544938270649&di=7a48f0c72ca306e2e551e1113d5672a8&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ff9dcd100baa1cd116794e219b212c8fcc3ce2dec.jpg");
 
-        recycleAdapter = new GoodsDetailAdapter(new ArrayList<ShopTabEntity>());
+        recycleAdapter = new GoodsDetailAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recycleAdapter);
 
@@ -62,7 +74,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdap
 
         scrollView.setOnScrollChangeListener(this);
 
-        addData();
+        getData();
     }
 
     @OnClick({R.id.goods_detail_start, R.id.goods_detail_back})
@@ -125,6 +137,28 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdap
         } else if (scrollY - oldScrollY < 0 && !isShow) {
             isShow = true;
             linearLayout.animate().translationY(0);
+        }
+    }
+
+    private void getData() {
+        GoodsInfoRequest goodsInfoRequest = new GoodsInfoRequest();
+        goodsInfoRequest.setGoodsId(getIntent().getStringExtra("goodsId"));
+        goodsInfoRequest.setMemberId(3 + "");
+        disposable = integralClient.getGoodsInfo(goodsInfoRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+
+                }, throwable -> {
+
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }

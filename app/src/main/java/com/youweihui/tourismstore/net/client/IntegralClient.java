@@ -1,9 +1,13 @@
 package com.youweihui.tourismstore.net.client;
 
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
+import com.youweihui.tourismstore.bean.FindRecommendGoodsListBean;
+import com.youweihui.tourismstore.bean.GoodInfoBean;
 import com.youweihui.tourismstore.net.Const;
 import com.youweihui.tourismstore.net.api.IntegralAPI;
 import com.youweihui.tourismstore.net.request.EmptyRequest;
+import com.youweihui.tourismstore.net.request.GoodsInfoRequest;
+import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 
@@ -32,5 +36,13 @@ public class IntegralClient extends BaseClient {
 
     public Observable<FindRecommendGoodsBean> getFindRecommendGoods(EmptyRequest emptyRequest) {
         return retrofit.getFindRecommendGoods(Const.TOKEN,emptyRequest);
+    }
+
+    public Observable<FindRecommendGoodsListBean> getFindRecommendGoodsList(GoodsListRequest listRequest) {
+        return retrofit.getFindRecommendGoodsList(Const.TOKEN,listRequest);
+    }
+
+    public Observable<GoodInfoBean> getGoodsInfo(GoodsInfoRequest infoRequest) {
+        return retrofit.getGoodsInfo(Const.TOKEN,infoRequest);
     }
 }

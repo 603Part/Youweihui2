@@ -61,7 +61,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="论坛"
+            android:text="发现"
             android:textColor="@drawable/selector_home_text"
             android:textSize="12sp" />
 

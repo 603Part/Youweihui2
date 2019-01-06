@@ -1,7 +1,11 @@
 package com.youweihui.tourismstore.net.api;
 
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
+import com.youweihui.tourismstore.bean.FindRecommendGoodsListBean;
+import com.youweihui.tourismstore.bean.GoodInfoBean;
 import com.youweihui.tourismstore.net.request.EmptyRequest;
+import com.youweihui.tourismstore.net.request.GoodsInfoRequest;
+import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 
@@ -24,4 +28,10 @@ public interface IntegralAPI {
 
     @POST("integral/findrecommendgoods")
     Observable<FindRecommendGoodsBean> getFindRecommendGoods(@Header ("token") String token, @Body EmptyRequest emptyRequest);
+
+    @POST("integral/findmoregoodslist")
+    Observable<FindRecommendGoodsListBean> getFindRecommendGoodsList(@Header ("token") String token, @Body GoodsListRequest listRequest);
+
+    @POST("integral/goodsinfo")
+    Observable<GoodInfoBean> getGoodsInfo(@Header ("token") String token, @Body GoodsInfoRequest infoRequest);
 }
