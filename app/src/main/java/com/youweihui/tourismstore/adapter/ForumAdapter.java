@@ -10,33 +10,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
+import com.youweihui.tourismstore.bean.ForumBean;
 import com.youweihui.tourismstore.bean.ForumEntity;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.CustomImageView;
 
 import java.util.List;
 
-public class ForumTabRecycleAdapter extends RecyclerView.Adapter<ForumTabRecycleAdapter.viewHolder> {
+public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> {
 
-    private List<ForumEntity> list;
+    private List<ForumBean.PageBean.ListBean> list;
 
     private Context context;
 
-    public ForumTabRecycleAdapter(List<ForumEntity> list) {
+    public ForumAdapter(List<ForumBean.PageBean.ListBean> list) {
         this.list = list;
     }
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.item_forum1, parent, false));
+        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.item_forum, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
 
-        GlideUtils.showToCircleImageView(context, list.get(position).getImg(), holder.imageView);
-        GlideUtils.showToImageView(context,holder.imageView2,list.get(position).getImg());
+//        GlideUtils.showToCircleImageView(context, list.get(position).get(), holder.imageView);
+//        GlideUtils.showToImageView(context,holder.imageView2,list.get(position).getImg());
 
         if (onItemClickListener != null) {
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class ForumTabRecycleAdapter extends RecyclerView.Adapter<ForumTabRecycle
 
         public viewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.item_forum1_img);
+            imageView = (ImageView) itemView.findViewById(R.id.item_forum_img);
             imageView2 = (CustomImageView) itemView.findViewById(R.id.item_forum1_center_img);
             textView1 = (TextView) itemView.findViewById(R.id.item_forum1_name);
             textView2 = (TextView) itemView.findViewById(R.id.item_forum1_time);
@@ -79,7 +80,7 @@ public class ForumTabRecycleAdapter extends RecyclerView.Adapter<ForumTabRecycle
         }
     }
 
-    public void setData(List<ForumEntity> list) {
+    public void setData(List<ForumBean.PageBean.ListBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }

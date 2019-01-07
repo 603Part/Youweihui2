@@ -17,6 +17,9 @@ import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.SpecialAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.ForumEntity;
+import com.youweihui.tourismstore.bean.SpecialBean;
+import com.youweihui.tourismstore.net.client.RetrofitClient;
+import com.youweihui.tourismstore.net.request.EmptyRequest;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
@@ -27,11 +30,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SpecialActivity extends BaseActivity implements BannerView.OnPageViewClicked, SpecialAdapter.OnItemClickListener,CustomScrollView.ScrollViewListener{
+public class SpecialActivity extends BaseActivity implements BannerView.OnPageViewClicked, SpecialAdapter.OnItemClickListener,CustomScrollView.ScrollViewListener,ViewTreeObserver.OnGlobalLayoutListener{
 
     @BindView(R.id.special_banner)
     BannerView bannerView;
@@ -63,6 +69,12 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
 
     private int imageHeight;
 
+    private ViewTreeObserver observer;
+
+    private Disposable disposable;
+
+    private RetrofitClient retrofitClient = new RetrofitClient();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +82,7 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
         setStatusBarColor(false);
 
         imgList = new ArrayList<>();
-
-        adapter = new SpecialAdapter(new ArrayList<ForumEntity>());
+        adapter = new SpecialAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setFocusable(false);
@@ -79,21 +90,24 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
         bannerView.setOnPageViewClicked(this);
         adapter.setOnItemClickListener(this);
         customScrollView.setScrollViewListener(this);
+        observer = bannerView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(this);
 
-        ViewTreeObserver vto = bannerView.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                bannerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                imageHeight = bannerView.getHeight();
-                customScrollView.setScrollViewListener(SpecialActivity.this);
-            }
-        });
-
-        setData();
+        getData();
     }
 
-    private void setData() {
+    private void getData() {
+        EmptyRequest emptyRequest = new EmptyRequest();
+        disposable = retrofitClient.getTitleProcuctList(emptyRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    setData(bean);
+                }, throwable -> {
+                });
+    }
+
+    private void setData(SpecialBean bean) {
         imgList.add("http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426740841&di=1aa67a38806d3cb35d77a1e9bce4d707&imgtype=0&src=http%3A%2F%2Fimg.pptjia.com%2Fimage%2F20180117%2Ff4b76385a3ccdbac48893cc6418806d5.jpg");
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426787463&di=423811f8e34002b14a8039e9ec53bf75&imgtype=0&src=http%3A%2F%2Fimg17.3lian.com%2Fd%2Ffile%2F201701%2F09%2F7d3cdc209be727aef32d28795dd58b3b.jpg");
@@ -109,40 +123,7 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
 
         bannerView.setPageViewPics(list);
 
-        List<ForumEntity> list2 = new ArrayList<>();
-
-
-        for (int i = 0; i < 8; i++) {
-            ForumEntity forumEntity = new ForumEntity();
-            switch (i) {
-                case 0:
-                    forumEntity.setImg("http://imgsrc.baidu.com/forum/pic/item/124e510fd9f9d72ac213bca3d92a2834349bbb1f.jpg");
-                    break;
-                case 1:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-                    break;
-                case 2:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-                    break;
-                case 3:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-                    break;
-                case 4:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-                    break;
-                case 5:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-                    break;
-                case 6:
-                    forumEntity.setImg("http://imgsrc.baidu.com/forum/pic/item/9020720e0cf3d7ca905048cbff1fbe096a63a9ef.jpg");
-                    break;
-                case 7:
-                    forumEntity.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-                    break;
-            }
-            list2.add(forumEntity);
-        }
-        adapter.setData(list2);
+        adapter.setData(bean.getData().getFeatureTitleList());
     }
 
     @OnClick({R.id.special_back2, R.id.special_back, R.id.special_nav_text1, R.id.special_nav_text2, R.id.special_nav_text3, R.id.special_nav_text4})
@@ -207,6 +188,21 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
             relativeLayout.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
             back.setVisibility(View.GONE);
             title.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        bannerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        imageHeight = bannerView.getHeight();
+        customScrollView.setScrollViewListener(SpecialActivity.this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }

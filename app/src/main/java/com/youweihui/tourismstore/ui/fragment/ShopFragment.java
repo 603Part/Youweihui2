@@ -1,26 +1,27 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
+import com.youweihui.tourismstore.adapter.ShopCenterAdapter;
 import com.youweihui.tourismstore.adapter.ShopTabAdapter;
+import com.youweihui.tourismstore.adapter.ShopTopAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
 
-import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.client.RetrofitClient;
 import com.youweihui.tourismstore.net.request.EmptyRequest;
-import com.youweihui.tourismstore.net.request.GoodsRequest;
-import com.youweihui.tourismstore.net.request.SubmitRequest;
-import com.youweihui.tourismstore.net.response.BaseResponse;
+import com.youweihui.tourismstore.ui.activity.GoodsDetailActivity;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
@@ -38,49 +39,13 @@ import io.reactivex.schedulers.Schedulers;
  * Created by ${范泽宁} on 2018/12/10.
  */
 
-public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,BannerView.OnPageViewClicked ,ViewTreeObserver.OnGlobalLayoutListener,CustomScrollView.Callbacks {
+public class ShopFragment extends BaseFragment implements ShopTopAdapter.OnItemClickListener,ShopCenterAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, BannerView.OnPageViewClicked, ViewTreeObserver.OnGlobalLayoutListener, CustomScrollView.Callbacks {
 
     @BindView(R.id.shop_scroll)
     CustomScrollView customScrollView;
 
     @BindView(R.id.shop_banner)
     BannerView bannerView;
-
-    @BindView(R.id.shop_img)
-    ImageView imageView;
-
-    @BindView(R.id.shop_text)
-    TextView textView;
-
-    @BindView(R.id.shop_text3)
-    TextView textView3;
-
-    @BindView(R.id.shop_text1)
-    TextView textView1;
-
-    @BindView(R.id.shop_text6)
-    TextView textView6;
-
-    @BindView(R.id.shop_text7)
-    TextView textView7;
-
-    @BindView(R.id.shop_text9)
-    TextView textView9;
-
-    @BindView(R.id.shop_text10)
-    TextView textView10;
-
-    @BindView(R.id.shop_text4)
-    TextView textView4;
-
-    @BindView(R.id.shop_img2)
-    ImageView imageView2;
-
-    @BindView(R.id.shop_img3)
-    ImageView imageView3;
-
-    @BindView(R.id.shop_img4)
-    ImageView imageView4;
 
     @BindView(R.id.shop_tb_seat)
     TabLayout seatLayout;
@@ -94,6 +59,18 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @BindView(R.id.fragment_shop_refresh)
     SwipeRefreshLayout refreshLayout;
 
+    @BindView(R.id.shop_top_recycle)
+    RecyclerView recyclerView1;
+
+    @BindView(R.id.shop_center_recycle)
+    RecyclerView recyclerView2;
+
+    @BindView(R.id.shop_center_title)
+    TextView centerTitle;
+
+    @BindView(R.id.shop_top_title)
+    TextView topTitle;
+
     private ArrayList<String> titleList;
 
     private ArrayList<ShopTabFragment> fragments;
@@ -102,15 +79,19 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
-    private IntegralClient integralClient = new IntegralClient();
+    private RetrofitClient retrofitClient = new RetrofitClient();
 
     private Disposable disposable;
 
-    private  ShopTabFragment fragment1;
+    private ShopTabFragment fragment1;
 
-    private  ShopTabFragment fragment2;
+    private ShopTabFragment fragment2;
 
-    private  ShopTabFragment fragment3;
+    private ShopTabFragment fragment3;
+
+    private ShopTopAdapter shopTopAdapter;
+
+    private ShopCenterAdapter shopCenterAdapter;
 
     @Override
     protected int getLayoutResId() {
@@ -122,6 +103,8 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         titleList = new ArrayList<>();
         fragments = new ArrayList<>();
         tabAdapter = new ShopTabAdapter(getActivity().getSupportFragmentManager(), fragments, titleList);
+        shopTopAdapter = new ShopTopAdapter(new ArrayList<>());
+        shopCenterAdapter = new ShopCenterAdapter(new ArrayList<>());
     }
 
     @Override
@@ -141,7 +124,7 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void getData() {
         super.getData();
         EmptyRequest emptyRequest = new EmptyRequest();
-        disposable = integralClient.getFindRecommendGoods(emptyRequest)
+        disposable = retrofitClient.getFindRecommendGoods(emptyRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bean -> {
@@ -183,24 +166,23 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         bannerView.setPageViewPics(list);
 
-        GlideUtils.showToImageView(context, imageView, bean.getHotlist().get(0).getPictureUrl());
-        GlideUtils.showToImageView(context, imageView2, bean.getHotlist().get(1).getPictureUrl());
-        GlideUtils.showToImageView(context, imageView3, bean.getTravellist().get(0).getPictureUrl());
-        GlideUtils.showToImageView(context, imageView4, bean.getTravellist().get(1).getPictureUrl());
+        shopTopAdapter.setData(bean.getHotlist());
+        shopCenterAdapter.setData(bean.getTravellist());
 
-        textView.setText(bean.getHotlist().get(0).getGoodsName());
-        textView1.setText(bean.getHotlist().get(0).getIntegral() + "积分");
-        textView4.setText(bean.getHotlist().get(1).getIntegral() + "积分");
-        textView3.setText(bean.getHotlist().get(1).getGoodsName());
-
-        textView6.setText(bean.getTravellist().get(0).getGoodsName());
-        textView9.setText(bean.getTravellist().get(1).getGoodsName());
-        textView7.setText(bean.getTravellist().get(0).getIntegral() + "积分");
-        textView10.setText(bean.getTravellist().get(1).getIntegral() + "积分");
+        topTitle.setText(bean.getHotlist().get(0).getClassifyName());
+        centerTitle.setText(bean.getTravellist().get(0).getClassifyName());
     }
 
     @Override
     protected void setAttribute() {
+
+        recyclerView1.setLayoutManager(new GridLayoutManager(context, 2));
+        recyclerView1.setAdapter(shopTopAdapter);
+
+        recyclerView2.setLayoutManager(new GridLayoutManager(context, 2));
+        recyclerView2.setAdapter(shopCenterAdapter);
+
+
         titleList.add("默认排序");
         titleList.add("销量最高");
         titleList.add("价格最优");
@@ -239,6 +221,8 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         onGlobalLayoutListener = this;
         customScrollView.setCallbacks(this);
         refreshLayout.setOnRefreshListener(this);
+        shopTopAdapter.setOnItemClickListener(this);
+        shopCenterAdapter.setOnItemClickListener(this);
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
 
         refreshLayout.setProgressBackgroundColorSchemeResource(R.color.translucentWhite);
@@ -248,5 +232,16 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         fragment1.refresh();
+    }
+
+    @Override
+    public void onItemClick(View v, int position, int type) {
+        Intent intent = new Intent(context, GoodsDetailActivity.class);
+        if (type == shopTopAdapter.getItemViewType(position)){
+            intent.putExtra("goodsId", shopTopAdapter.getData().get(position).getGoodsId() + "");
+        }else{
+            intent.putExtra("goodsId", shopCenterAdapter.getData().get(position).getGoodsId() + "");
+        }
+        startActivity(intent);
     }
 }

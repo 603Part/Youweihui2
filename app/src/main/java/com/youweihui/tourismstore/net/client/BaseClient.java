@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class BaseClient {
 
     private OkHttpClient okHttpClient;
+
     private HttpLoggingInterceptor httpLoggingInterceptor;
 
     protected OkHttpClient getOkHttpClient(){

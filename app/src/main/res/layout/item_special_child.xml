@@ -12,26 +12,26 @@
         android:scaleType="fitXY"/>
 
     <TextView
+        android:id="@+id/item_special_child_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="新疆五日游"
         android:layout_marginTop="5dp"
         android:textColor="@color/text_color"
         android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/item_special_child_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:textColor="@color/text_color2"
         android:layout_marginTop="3dp"
-        android:text="至尊漠北探寻北的神奇与梦幻哈尔滨漠河北极村第一湾北红村圣诞村九曲十八湾全"
         android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/item_special_child_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¥999"
         android:layout_marginTop="3dp"
         android:textColor="@color/orange"
         android:textSize="15sp" />

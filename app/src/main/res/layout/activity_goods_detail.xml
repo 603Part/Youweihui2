@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:layout_height="match_parent">
+    android:focusableInTouchMode="true">
 
     <RelativeLayout
         android:id="@+id/goods_detail_title"
@@ -52,40 +52,38 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="87dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white">
 
                 <TextView
                     android:id="@+id/goods_detail_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/textView"
-                    android:layout_marginTop="11dp"
-                    android:maxLines="2"
-                    android:text="义乌购,覆盖义乌国际商贸城一区至五区、篁园服装市场、义乌国际生产资料市场、义乌进口商品城等7.5万商位、300万商品,线上线下对应,交易有保障,找货更轻松"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/text_color" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/goods_detail_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/goods_detail_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="30000积分"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/red" />
 
                 <TextView
+                    android:id="@+id/goods_detail_sales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_below="@+id/goods_detail_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="销量:10010"
+                    android:layout_marginTop="10dp"
                     android:textSize="12sp" />
             </RelativeLayout>
 

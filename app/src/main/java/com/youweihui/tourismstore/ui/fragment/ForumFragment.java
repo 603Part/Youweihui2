@@ -3,31 +3,32 @@ package com.youweihui.tourismstore.ui.fragment;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
-import com.youweihui.tourismstore.adapter.ForumTabRecycleAdapter;
+import com.youweihui.tourismstore.adapter.ForumAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.ForumEntity;
+import com.youweihui.tourismstore.bean.ForumTabBean;
 import com.youweihui.tourismstore.bean.ForumTabEntity2;
 import com.youweihui.tourismstore.bean.HomeTailOrderEntity;
+import com.youweihui.tourismstore.net.client.RetrofitClient;
+import com.youweihui.tourismstore.net.request.EmptyRequest;
+import com.youweihui.tourismstore.net.request.ReleaseListByClassIfyIdRequest;
 import com.youweihui.tourismstore.ui.activity.ArticleDetailActivity;
 import com.youweihui.tourismstore.ui.activity.ReleaseActivity;
 import com.youweihui.tourismstore.utils.DensityUtil;
 import com.youweihui.tourismstore.utils.GlideUtils;
-import com.youweihui.tourismstore.utils.SpaceItemDecoration;
 import com.youweihui.tourismstore.view.BannerView;
 import com.youweihui.tourismstore.view.CustomScrollView;
 
@@ -36,12 +37,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ${范泽宁} on 2018/12/10.
  */
 
-public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapter.OnItemClickListener {
+public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemClickListener {
 
     @BindView(R.id.forum_banner)
     BannerView bannerView;
@@ -76,11 +80,15 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
 
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
-    private ForumTabRecycleAdapter recycleAdapter;
+    private ForumAdapter recycleAdapter;
 
     private int scrollX;
 
     private int scrollY;
+
+    private Disposable disposable;
+
+    private RetrofitClient retrofitClient = new RetrofitClient();
 
     @Override
     protected int getLayoutResId() {
@@ -91,7 +99,7 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
     protected void initView() {
         titleList = new ArrayList<>();
         imgList = new ArrayList<>();
-        recycleAdapter = new ForumTabRecycleAdapter(new ArrayList<>());
+        recycleAdapter = new ForumAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(recycleAdapter);
 
@@ -99,11 +107,6 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
         addData();
 
         setBannerData();
-
-        for (int i = 0; i < titleList.size(); i++) {
-            seatLayout.addTab(seatLayout.newTab().setText(titleList.get(i).toString()));
-            realLayout.addTab(realLayout.newTab().setText(titleList.get(i).toString()));
-        }
 
         realLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
         seatLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
@@ -217,68 +220,6 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
         imgList.add("http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426740841&di=1aa67a38806d3cb35d77a1e9bce4d707&imgtype=0&src=http%3A%2F%2Fimg.pptjia.com%2Fimage%2F20180117%2Ff4b76385a3ccdbac48893cc6418806d5.jpg");
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426787463&di=423811f8e34002b14a8039e9ec53bf75&imgtype=0&src=http%3A%2F%2Fimg17.3lian.com%2Fd%2Ffile%2F201701%2F09%2F7d3cdc209be727aef32d28795dd58b3b.jpg");
-        addData2();
-    }
-
-    private void addData2() {
-        List<ForumEntity> list = new ArrayList<>();
-        List<ForumTabEntity2> list2 = new ArrayList<>();
-
-        ForumEntity entity1 = new ForumEntity();
-        ForumEntity entity2 = new ForumEntity();
-        ForumEntity entity3 = new ForumEntity();
-        ForumEntity entity4 = new ForumEntity();
-        ForumEntity entity5 = new ForumEntity();
-        ForumEntity entity6 = new ForumEntity();
-        ForumEntity entity7 = new ForumEntity();
-        ForumEntity entity8 = new ForumEntity();
-
-        ForumTabEntity2 entity21 = new ForumTabEntity2();
-        ForumTabEntity2 entity22 = new ForumTabEntity2();
-        ForumTabEntity2 entity23 = new ForumTabEntity2();
-        ForumTabEntity2 entity24 = new ForumTabEntity2();
-        ForumTabEntity2 entity25 = new ForumTabEntity2();
-        ForumTabEntity2 entity26 = new ForumTabEntity2();
-        ForumTabEntity2 entity27 = new ForumTabEntity2();
-        ForumTabEntity2 entity28 = new ForumTabEntity2();
-
-        entity1.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity8.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity2.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-        entity7.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity3.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity4.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity6.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity5.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-
-        entity21.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity22.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity23.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-        entity24.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity25.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity26.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity27.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity28.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-
-        list.add(entity1);
-        list.add(entity2);
-        list.add(entity3);
-        list.add(entity4);
-        list.add(entity5);
-        list.add(entity6);
-        list.add(entity7);
-        list.add(entity8);
-
-        list2.add(entity21);
-        list2.add(entity22);
-        list2.add(entity23);
-        list2.add(entity24);
-        list2.add(entity25);
-        list2.add(entity26);
-        list2.add(entity27);
-        list2.add(entity28);
-
-        recycleAdapter.setData(list);
     }
 
     @OnClick({R.id.forum_release})
@@ -303,34 +244,25 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
 
-        contentView.findViewById(R.id.dialog_question).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ReleaseActivity.class);
-                intent.putExtra("title", "发布提问");
-                startActivity(intent);
-                bottomDialog.dismiss();
-            }
+        contentView.findViewById(R.id.dialog_question).setOnClickListener(view -> {
+            Intent intent = new Intent(context, ReleaseActivity.class);
+            intent.putExtra("title", "发布提问");
+            startActivity(intent);
+            bottomDialog.dismiss();
         });
 
-        contentView.findViewById(R.id.dialog_record).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ReleaseActivity.class);
-                intent.putExtra("title", "发布游记");
-                startActivity(intent);
-                bottomDialog.dismiss();
-            }
+        contentView.findViewById(R.id.dialog_record).setOnClickListener(view -> {
+            Intent intent = new Intent(context, ReleaseActivity.class);
+            intent.putExtra("title", "发布游记");
+            startActivity(intent);
+            bottomDialog.dismiss();
         });
 
-        contentView.findViewById(R.id.dialog_photo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ReleaseActivity.class);
-                intent.putExtra("title", "发布图片");
-                startActivity(intent);
-                bottomDialog.dismiss();
-            }
+        contentView.findViewById(R.id.dialog_photo).setOnClickListener(view -> {
+            Intent intent = new Intent(context, ReleaseActivity.class);
+            intent.putExtra("title", "发布图片");
+            startActivity(intent);
+            bottomDialog.dismiss();
         });
     }
 
@@ -338,5 +270,50 @@ public class ForumFragment extends BaseFragment implements ForumTabRecycleAdapte
     public void onItemClick(View v, int position, int type) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void getData() {
+        super.getData();
+        EmptyRequest emptyRequest = new EmptyRequest();
+        disposable = retrofitClient.getClassIfyList(emptyRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    setData(bean);
+                }, throwable -> {
+                });
+    }
+
+    private void setData(ForumTabBean bean) {
+        for (int i = 0; i < bean.getData().size(); i++) {
+            seatLayout.addTab(seatLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
+            realLayout.addTab(realLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
+        }
+
+        ReleaseListByClassIfyIdRequest classIfyIdRequest = new ReleaseListByClassIfyIdRequest();
+//        classIfyIdRequest.setClassifyId(bean.getData().get(0).getId());
+//        classIfyIdRequest.setLevel(bean.getData().get(0).getLevel());
+
+        classIfyIdRequest.setClassifyId(3);
+        classIfyIdRequest.setLevel(1);
+        classIfyIdRequest.setPage(1);
+        classIfyIdRequest.setLimit(10);
+        disposable = retrofitClient.getReleaseListByClassIfyId(classIfyIdRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(classIfyIdBean -> {
+                    recycleAdapter.setData(classIfyIdBean.getPage().getList());
+                }, throwable -> {
+                    Log.e("-----------",throwable.getMessage());
+                });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

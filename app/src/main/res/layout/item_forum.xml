@@ -10,7 +10,7 @@
     android:background="@drawable/shp_forum">
 
     <ImageView
-        android:id="@+id/item_forum1_img"
+        android:id="@+id/item_forum_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
@@ -20,9 +20,9 @@
         android:id="@+id/item_forum1_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/item_forum1_img"
-        android:layout_toEndOf="@+id/item_forum1_img"
-        android:layout_toRightOf="@+id/item_forum1_img"
+        android:layout_alignTop="@+id/item_forum_img"
+        android:layout_toEndOf="@+id/item_forum_img"
+        android:layout_toRightOf="@+id/item_forum_img"
         android:maxEms="15"
         android:text="浅子影"
         android:textColor="@color/text_color"

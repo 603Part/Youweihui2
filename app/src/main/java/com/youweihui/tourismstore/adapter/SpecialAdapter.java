@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.bean.ForumEntity;
+import com.youweihui.tourismstore.bean.SpecialBean;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.utils.GridSpacingItemDecoration;
 
@@ -19,11 +20,11 @@ import java.util.List;
 
 public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.viewHolder> {
 
-    private List<ForumEntity> list;
+    private List<SpecialBean.DataBean.FeatureTitleListBean> list;
 
     private Context context;
 
-    public SpecialAdapter(List<ForumEntity> list) {
+    public SpecialAdapter(List<SpecialBean.DataBean.FeatureTitleListBean> list) {
         this.list = list;
     }
 
@@ -40,15 +41,17 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.viewHold
         recyclerview.addItemDecoration(new GridSpacingItemDecoration(2, 10, true));
         recyclerview.setHasFixedSize(true);
 
-        SpecialChildAdapter adapter = new SpecialChildAdapter(new ArrayList<ForumEntity>());
+        SpecialChildAdapter adapter = new SpecialChildAdapter(new ArrayList<>());
         recyclerview.setAdapter(adapter);
-        adapter.setData(list);
+        adapter.setData(list.get(position).getProcuctList());
+
+        holder.textView1.setText(list.get(position).getTitleName());
 
         if (onItemClickListener != null) {
             holder.textView3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(),0);
+                    onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(), 0);
                 }
             });
         }
@@ -68,7 +71,7 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.viewHold
         public viewHolder(View itemView) {
             super(itemView);
 //            imageView = (ImageView) itemView.findViewById(R.id.);
-//            textView1 = (TextView) itemView.findViewById(R.id.);
+            textView1 = (TextView) itemView.findViewById(R.id.item_special_title);
 //            textView2 = (TextView) itemView.findViewById(R.id.);
             textView3 = (TextView) itemView.findViewById(R.id.item_special_more);
             recyclerView = itemView.findViewById(R.id.item_special_recycle);
@@ -76,7 +79,7 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.viewHold
         }
     }
 
-    public void setData(List<ForumEntity> list) {
+    public void setData(List<SpecialBean.DataBean.FeatureTitleListBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -84,7 +87,7 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.viewHold
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View v, int position,int type);
+        void onItemClick(View v, int position, int type);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -9,18 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
-import com.youweihui.tourismstore.bean.ShopTabEntity;
+import com.youweihui.tourismstore.bean.GoodInfoBean;
 import com.youweihui.tourismstore.utils.GlideUtils;
 
 import java.util.List;
 
 public class GoodsDetailAdapter extends RecyclerView.Adapter<GoodsDetailAdapter.viewHolder> {
 
-    private List<ShopTabEntity> list;
+    private List<GoodInfoBean.GoodsInfoBean.PictureListBean> list;
 
     private Context context;
 
-    public GoodsDetailAdapter(List<ShopTabEntity> list) {
+    public GoodsDetailAdapter(List<GoodInfoBean.GoodsInfoBean.PictureListBean> list) {
         this.list = list;
     }
 
@@ -32,7 +32,7 @@ public class GoodsDetailAdapter extends RecyclerView.Adapter<GoodsDetailAdapter.
 
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
-        GlideUtils.showToImageView(context, holder.imageView, list.get(position).getImg());
+        GlideUtils.showToImageView(context, holder.imageView, list.get(position).getPictureUrl());
 
         if (onItemClickListener!=null){
             holder.imageView.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class GoodsDetailAdapter extends RecyclerView.Adapter<GoodsDetailAdapter.
         }
     }
 
-    public void setData(List<ShopTabEntity> list) {
+    public void setData(List<GoodInfoBean.GoodsInfoBean.PictureListBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }

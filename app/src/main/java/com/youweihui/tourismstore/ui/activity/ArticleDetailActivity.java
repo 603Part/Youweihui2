@@ -1,23 +1,15 @@
 package com.youweihui.tourismstore.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ArticleAdapter;
-import com.youweihui.tourismstore.adapter.ForumTabRecycleAdapter;
 import com.youweihui.tourismstore.base.BaseActivity;
 import com.youweihui.tourismstore.bean.ForumEntity;
-import com.youweihui.tourismstore.bean.ForumTabEntity2;
 import com.youweihui.tourismstore.utils.GlideUtils;
 
 import java.util.ArrayList;

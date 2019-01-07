@@ -12,7 +12,7 @@ import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopTabRecycleAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsListBean;
-import com.youweihui.tourismstore.net.client.IntegralClient;
+import com.youweihui.tourismstore.net.client.RetrofitClient;
 import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.ui.activity.GoodsDetailActivity;
 
@@ -43,7 +43,7 @@ public class ShopTabFragment extends BaseFragment implements ShopTabRecycleAdapt
 
     private int type;
 
-    private IntegralClient integralClient = new IntegralClient();
+    private RetrofitClient retrofitClient = new RetrofitClient();
 
     public ShopTabFragment(int type) {
         this.type = type;
@@ -99,7 +99,7 @@ public class ShopTabFragment extends BaseFragment implements ShopTabRecycleAdapt
         listRequest.setPage(1);
         listRequest.setLimit(100);
         listRequest.setOrderby(type);
-        disposable = integralClient.getFindRecommendGoodsList(listRequest)
+        disposable = retrofitClient.getFindRecommendGoodsList(listRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bean -> {
