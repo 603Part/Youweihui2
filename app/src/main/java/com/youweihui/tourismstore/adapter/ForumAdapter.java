@@ -36,16 +36,24 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
 
-//        GlideUtils.showToCircleImageView(context, list.get(position).get(), holder.imageView);
-//        GlideUtils.showToImageView(context,holder.imageView2,list.get(position).getImg());
+        if (list.get(position).getHeadUrl() != null) {
+            GlideUtils.showToCircleImageView(context, list.get(position).getHeadUrl().toString(), holder.imageView);
+        }
+
+        if (list.get(position).getPictureUrl() != null) {
+            GlideUtils.showToCircleImageView(context, list.get(position).getPictureUrl(), holder.imageView2);
+        }
+
+        if (list.get(position).getPubdate() != null)
+            holder.textView2.setText(list.get(position).getPubdate().toString());
+
+        holder.textView1.setText(list.get(position).getIssuer());
+        holder.textView3.setText(list.get(position).getBrowseNum() + "");
+        holder.textView4.setText(list.get(position).getLikeNum() + "");
+        holder.textView5.setText(list.get(position).getCommentNum() + "");
 
         if (onItemClickListener != null) {
-            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(), 1);
-                }
-            });
+            holder.relativeLayout.setOnClickListener(view -> onItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition(), 1));
         }
     }
 
@@ -63,12 +71,14 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
 
         public viewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.item_forum_img);
-            imageView2 = (CustomImageView) itemView.findViewById(R.id.item_forum1_center_img);
-            textView1 = (TextView) itemView.findViewById(R.id.item_forum1_name);
-            textView2 = (TextView) itemView.findViewById(R.id.item_forum1_time);
-            textView5 = (TextView) itemView.findViewById(R.id.item_forum1_content);
-            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.item_forum1_relative);
+            imageView = itemView.findViewById(R.id.item_forum_img);
+            imageView2 = itemView.findViewById(R.id.item_forum_center_img);
+            textView1 = itemView.findViewById(R.id.item_forum_name);
+            textView2 = itemView.findViewById(R.id.item_forum_time);
+            textView3 = itemView.findViewById(R.id.item_forum_eye);
+            textView4 = itemView.findViewById(R.id.item_forum_praise);
+            textView5 = itemView.findViewById(R.id.item_forum_reply);
+            relativeLayout = itemView.findViewById(R.id.item_forum_relative);
 
 
 //

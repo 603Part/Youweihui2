@@ -108,8 +108,6 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
 
         setBannerData();
 
-        realLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
-        seatLayout.setTabMode(titleList.size() <= 4 ? TabLayout.MODE_FIXED : TabLayout.MODE_SCROLLABLE);
         realLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
         seatLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
 

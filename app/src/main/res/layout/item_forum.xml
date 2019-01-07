@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_forum1_relative"
+    android:id="@+id/item_forum_relative"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:layout_marginLeft="10dp"
@@ -17,59 +17,55 @@
         android:scaleType="fitXY" />
 
     <TextView
-        android:id="@+id/item_forum1_name"
+        android:id="@+id/item_forum_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/item_forum_img"
         android:layout_toEndOf="@+id/item_forum_img"
         android:layout_toRightOf="@+id/item_forum_img"
         android:maxEms="15"
-        android:text="浅子影"
         android:textColor="@color/text_color"
         android:textSize="14sp"
         android:typeface="sans" />
 
     <TextView
-        android:id="@+id/item_forum1_time"
+        android:id="@+id/item_forum_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_forum1_name"
-        android:layout_alignLeft="@+id/item_forum1_name"
+        android:layout_below="@+id/item_forum_name"
+        android:layout_alignLeft="@+id/item_forum_name"
         android:layout_marginTop="3dp"
-        android:text="2108-04-06 14:41"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/item_forum1_eye"
+        android:id="@+id/item_forum_eye"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="2dp"
-        android:layout_toLeftOf="@+id/item_forum1_praise"
+        android:layout_toLeftOf="@+id/item_forum_praise"
         android:drawableLeft="@drawable/selector_forum_eye"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:text="568659"
         android:textSize="11sp" />
 
     <TextView
-        android:id="@+id/item_forum1_praise"
+        android:id="@+id/item_forum_praise"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="2dp"
-        android:layout_toStartOf="@+id/item_forum1_reply"
-        android:layout_toLeftOf="@+id/item_forum1_reply"
+        android:layout_toStartOf="@+id/item_forum_reply"
+        android:layout_toLeftOf="@+id/item_forum_reply"
         android:drawableLeft="@drawable/selector_forum_praise"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:text="213124"
         android:textSize="11sp" />
 
     <TextView
-        android:id="@+id/item_forum1_reply"
+        android:id="@+id/item_forum_reply"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
@@ -79,7 +75,6 @@
         android:drawableLeft="@drawable/selector_forum_reply"
         android:drawablePadding="3dp"
         android:gravity="center"
-        android:text="1234"
         android:textSize="11sp" />
 
     <ImageView
@@ -89,13 +84,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:src="@mipmap/ic_shar" />
+        android:src="@mipmap/ic_shar2" />
 
     <com.youweihui.tourismstore.view.CustomImageView
-        android:id="@+id/item_forum1_center_img"
+        android:id="@+id/item_forum_center_img"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_below="@+id/item_forum1_time"
+        android:layout_below="@+id/item_forum_time"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
