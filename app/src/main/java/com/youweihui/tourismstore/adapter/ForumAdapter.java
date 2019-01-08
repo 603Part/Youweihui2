@@ -1,6 +1,7 @@
 package com.youweihui.tourismstore.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.bean.ForumBean;
-import com.youweihui.tourismstore.bean.ForumEntity;
 import com.youweihui.tourismstore.utils.GlideUtils;
 import com.youweihui.tourismstore.view.CustomImageView;
 
@@ -23,6 +23,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
 
     private Context context;
 
+    private int normalType = 0;
+
     public ForumAdapter(List<ForumBean.PageBean.ListBean> list) {
         this.list = list;
     }
@@ -30,7 +32,10 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.item_forum, parent, false));
+        if (viewType == normalType) {
+            return new viewHolder(LayoutInflater.from(context).inflate(R.layout.item_forum, parent, false));
+        }
+        return null;
     }
 
     @Override
@@ -67,7 +72,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
         private ImageView imageView;
         private CustomImageView imageView2;
         private RelativeLayout relativeLayout;
-        private TextView textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9;
+        private TextView textView1, textView2, textView3, textView4, textView5;
 
         public viewHolder(View itemView) {
             super(itemView);
@@ -79,14 +84,6 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
             textView4 = itemView.findViewById(R.id.item_forum_praise);
             textView5 = itemView.findViewById(R.id.item_forum_reply);
             relativeLayout = itemView.findViewById(R.id.item_forum_relative);
-
-
-//
-//            textView7 = (TextView) itemView.findViewById(R.id.item_forum1_eye);
-//            textView8 = (TextView) itemView.findViewById(R.id.item_forum1_praise);
-//            textView9 = (TextView) itemView.findViewById(R.id.item_forum1_reply);
-
-
         }
     }
 

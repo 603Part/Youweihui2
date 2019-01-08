@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,6 +35,8 @@ import com.youweihui.tourismstore.view.CustomScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +48,8 @@ import io.reactivex.schedulers.Schedulers;
  * Created by ${范泽宁} on 2018/12/10.
  */
 
-public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemClickListener {
+public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemClickListener
+        , ViewTreeObserver.OnGlobalLayoutListener, TabLayout.OnTabSelectedListener, CustomScrollView.Callbacks, BannerView.OnPageViewClicked {
 
     @BindView(R.id.forum_banner)
     BannerView bannerView;
@@ -55,9 +59,6 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
 
     @BindView(R.id.forum_tb_real)
     TabLayout realLayout;
-
-    @BindView(R.id.fragment_forum_relative)
-    RelativeLayout relativeLayout3;
 
     @BindView(R.id.forum_scroll)
     CustomScrollView customScrollView;
@@ -76,8 +77,6 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
 
     private ArrayList<String> imgList;
 
-    private ArrayList<String> titleList;
-
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
     private ForumAdapter recycleAdapter;
@@ -90,69 +89,48 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
 
     private RetrofitClient retrofitClient = new RetrofitClient();
 
+    private int mPage = 1;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_forum;
     }
 
     @Override
-    protected void initView() {
-        titleList = new ArrayList<>();
-        imgList = new ArrayList<>();
-        recycleAdapter = new ForumAdapter(new ArrayList<>());
+    protected void setAttribute() {
+        super.setAttribute();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(recycleAdapter);
-
-        recycleAdapter.setOnItemClickListener(this);
-        addData();
-
-        setBannerData();
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         realLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
         seatLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
 
-        onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onGlobalLayout() {
-                relativeLayout2.setTranslationY(relativeLayout.getTop());
-                relativeLayout2.setVisibility(View.VISIBLE);
-                recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
-            }
-        };
-
         recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+    }
 
-        customScrollView.setCallbacks(new CustomScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged(int x, int y, int oldx, int oldy) {
-                int translation = Math.max(y, relativeLayout.getTop());
-                relativeLayout2.setTranslationY(translation);
-                if (y > relativeLayout.getHeight()) {
-                } else {
-                }
-            }
-        });
+    @Override
+    protected void setOnClick() {
+        super.setOnClick();
+        customScrollView.setCallbacks(this);
+        bannerView.setOnPageViewClicked(this);
+        recycleAdapter.setOnItemClickListener(this);
+        realLayout.addOnTabSelectedListener(this);
+    }
 
-        realLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    @Override
+    protected void initView() {
+        onGlobalLayoutListener = this;
+        imgList = new ArrayList<>();
+        recycleAdapter = new ForumAdapter(new ArrayList<>());
+        setBannerData();
     }
 
     private void setBannerData() {
+        imgList.add("http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
+        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426740841&di=1aa67a38806d3cb35d77a1e9bce4d707&imgtype=0&src=http%3A%2F%2Fimg.pptjia.com%2Fimage%2F20180117%2Ff4b76385a3ccdbac48893cc6418806d5.jpg");
+        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426787463&di=423811f8e34002b14a8039e9ec53bf75&imgtype=0&src=http%3A%2F%2Fimg17.3lian.com%2Fd%2Ffile%2F201701%2F09%2F7d3cdc209be727aef32d28795dd58b3b.jpg");
+
         List<View> list = new ArrayList<>();
 
         for (int i = 0; i < imgList.size(); i++) {
@@ -163,13 +141,6 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         }
 
         bannerView.setPageViewPics(list);
-
-        bannerView.setOnPageViewClicked(new BannerView.OnPageViewClicked() {
-            @Override
-            public void onPageViewClicked(int position) {
-
-            }
-        });
     }
 
     @Override
@@ -187,37 +158,7 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         } else {
             bannerView.start();
             customScrollView.scrollTo(scrollX, scrollY);
-
-
         }
-    }
-
-    private void addData() {
-        HomeTailOrderEntity entity1 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity2 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity3 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity4 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity5 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity6 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity7 = new HomeTailOrderEntity();
-        HomeTailOrderEntity entity8 = new HomeTailOrderEntity();
-
-        entity1.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity8.setImg("http://you.lumeilvyou3.cn/wenda/01/images/b2367f36779e3fa7fe3a2c131b3d7a84.jpg");
-        entity2.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-        entity7.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity3.setImg("http://you.lumeilvyou3.cn/wenda/01/images/55b79ae2e0296aef854d03289e4f0664.jpg");
-        entity4.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity6.setImg("http://you.lumeilvyou3.cn/wenda/01/images/eecdc2b9be66398a43d57430138cef4a.jpg");
-        entity5.setImg("http://you.lumeilvyou3.cn/wenda/01/images/a6ad9024c244ffbd20427c37a1e691a8.jpg");
-
-        titleList.add("热门推荐");
-        titleList.add("旅游咨询");
-        titleList.add("旅游指南");
-
-        imgList.add("http://img17.3lian.com/d/file/201702/16/17cd567662bafc8d63d73d41444585d2.jpg");
-        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426740841&di=1aa67a38806d3cb35d77a1e9bce4d707&imgtype=0&src=http%3A%2F%2Fimg.pptjia.com%2Fimage%2F20180117%2Ff4b76385a3ccdbac48893cc6418806d5.jpg");
-        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544426787463&di=423811f8e34002b14a8039e9ec53bf75&imgtype=0&src=http%3A%2F%2Fimg17.3lian.com%2Fd%2Ffile%2F201701%2F09%2F7d3cdc209be727aef32d28795dd58b3b.jpg");
     }
 
     @OnClick({R.id.forum_release})
@@ -227,6 +168,81 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
                 showDialog();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(View v, int position, int type) {
+        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void getData() {
+        super.getData();
+        EmptyRequest emptyRequest = new EmptyRequest();
+        disposable = retrofitClient.getClassIfyList(emptyRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    setData(bean);
+                }, throwable -> {
+                });
+    }
+
+    private void setData(ForumTabBean bean) {
+        for (int i = 0; i < bean.getData().size(); i++) {
+            seatLayout.addTab(seatLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
+            realLayout.addTab(realLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
+        }
+
+        getListData();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onGlobalLayout() {
+        relativeLayout2.setTranslationY(relativeLayout.getTop());
+        relativeLayout2.setVisibility(View.VISIBLE);
+        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onScrollChanged(int x, int y, int oldx, int oldy) {
+        int translation = Math.max(y, relativeLayout.getTop());
+        relativeLayout2.setTranslationY(translation);
+        if (y > relativeLayout.getHeight()) {
+
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onPageViewClicked(int position) {
+
     }
 
     private void showDialog() {
@@ -264,54 +280,27 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         });
     }
 
-    @Override
-    public void onItemClick(View v, int position, int type) {
-        Intent intent = new Intent(context, ArticleDetailActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void getData() {
-        super.getData();
-        EmptyRequest emptyRequest = new EmptyRequest();
-        disposable = retrofitClient.getClassIfyList(emptyRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bean -> {
-                    setData(bean);
-                }, throwable -> {
-                });
-    }
-
-    private void setData(ForumTabBean bean) {
-        for (int i = 0; i < bean.getData().size(); i++) {
-            seatLayout.addTab(seatLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
-            realLayout.addTab(realLayout.newTab().setText(bean.getData().get(i).getClassifyName()));
-        }
-
+    private void getListData() {
         ReleaseListByClassIfyIdRequest classIfyIdRequest = new ReleaseListByClassIfyIdRequest();
 //        classIfyIdRequest.setClassifyId(bean.getData().get(0).getId());
 //        classIfyIdRequest.setLevel(bean.getData().get(0).getLevel());
 
         classIfyIdRequest.setClassifyId(3);
         classIfyIdRequest.setLevel(1);
-        classIfyIdRequest.setPage(1);
+        classIfyIdRequest.setPage(mPage);
         classIfyIdRequest.setLimit(10);
         disposable = retrofitClient.getReleaseListByClassIfyId(classIfyIdRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(classIfyIdBean -> {
-                    recycleAdapter.setData(classIfyIdBean.getPage().getList());
-                }, throwable -> {
-                    Log.e("-----------",throwable.getMessage());
-                });
-    }
+                    if (mPage <= classIfyIdBean.getPage().getTotalPage()) {
+                        mPage++;
+                        recycleAdapter.setData(classIfyIdBean.getPage().getList());
+                    } else {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (!disposable.isDisposed()) {
-            disposable.dispose();
-        }
+                    }
+                }, throwable -> {
+
+                });
     }
 }

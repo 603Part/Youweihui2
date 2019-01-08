@@ -11,6 +11,7 @@ import com.youweihui.tourismstore.net.request.GoodsInfoRequest;
 import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.request.ReleaseListByClassIfyIdRequest;
+import com.youweihui.tourismstore.net.request.SubmitOrderRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 
 import io.reactivex.Observable;
@@ -47,4 +48,7 @@ public interface IntegralAPI {
 
     @POST("forum/releaselistbyclassifyid")
     Observable<ForumBean> getReleaseListByClassIfyId(@Header ("token") String token, @Body ReleaseListByClassIfyIdRequest releaseListByClassIfyIdRequest);
+
+    @POST("integral/submitorder")
+    Observable<ForumBean> getSubmitOrder(@Header ("token") String token, @Body SubmitOrderRequest submitOrderRequest);
 }

@@ -79,6 +79,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailAdap
         switch (view.getId()) {
             case R.id.goods_detail_start:
                 Intent intent = new Intent(this, ConfirmOrderActivity.class);
+                intent.putExtra("integralGoodsId", getIntent().getStringExtra("goodsId"));
                 startActivity(intent);
                 break;
             case R.id.goods_detail_back:

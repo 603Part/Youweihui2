@@ -13,6 +13,7 @@ import com.youweihui.tourismstore.net.request.GoodsInfoRequest;
 import com.youweihui.tourismstore.net.request.GoodsListRequest;
 import com.youweihui.tourismstore.net.request.GoodsRequest;
 import com.youweihui.tourismstore.net.request.ReleaseListByClassIfyIdRequest;
+import com.youweihui.tourismstore.net.request.SubmitOrderRequest;
 import com.youweihui.tourismstore.net.response.BaseResponse;
 
 import io.reactivex.Observable;
@@ -60,5 +61,9 @@ public class RetrofitClient extends BaseClient {
 
     public Observable<ForumBean> getReleaseListByClassIfyId(ReleaseListByClassIfyIdRequest releaseListByClassIfyIdRequest) {
         return retrofit.getReleaseListByClassIfyId(Const.TOKEN,releaseListByClassIfyIdRequest);
+    }
+
+    public Observable<ForumBean> getSubmitOrder(SubmitOrderRequest submitOrderRequest) {
+        return retrofit.getSubmitOrder(Const.TOKEN,submitOrderRequest);
     }
 }

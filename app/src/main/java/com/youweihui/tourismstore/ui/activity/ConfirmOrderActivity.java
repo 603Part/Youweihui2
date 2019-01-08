@@ -9,10 +9,16 @@ import android.widget.TextView;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.base.BaseActivity;
+import com.youweihui.tourismstore.net.client.RetrofitClient;
+import com.youweihui.tourismstore.net.request.ReleaseListByClassIfyIdRequest;
+import com.youweihui.tourismstore.net.request.SubmitOrderRequest;
 import com.youweihui.tourismstore.utils.GlideUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ConfirmOrderActivity extends BaseActivity {
 
@@ -25,6 +31,10 @@ public class ConfirmOrderActivity extends BaseActivity {
     @BindView(R.id.confirm_order_relative)
     RelativeLayout relativeLayout;
 
+    private Disposable disposable;
+
+    private RetrofitClient retrofitClient = new RetrofitClient();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +46,7 @@ public class ConfirmOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.goods_detail_start:
-
+                submitOrder();
                 break;
             case R.id.goods_detail_back:
                 finish();
@@ -45,6 +55,29 @@ public class ConfirmOrderActivity extends BaseActivity {
                 Intent intent2 = new Intent(this, MyAddressActivity.class);
                 startActivity(intent2);
                 break;
+        }
+    }
+
+    private void submitOrder() {
+        int goodsId = Integer.parseInt(getIntent().getStringExtra("integralGoodsId"));
+        SubmitOrderRequest submitOrderRequest = new SubmitOrderRequest();
+        submitOrderRequest.setAddressId(1);
+        submitOrderRequest.setIntegralGoodsId(goodsId);
+        submitOrderRequest.setNumber(1);
+        disposable = retrofitClient.getSubmitOrder(submitOrderRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                }, throwable -> {
+
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }
