@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ForumAdapter;
@@ -49,7 +51,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemClickListener
-        , ViewTreeObserver.OnGlobalLayoutListener, TabLayout.OnTabSelectedListener, CustomScrollView.Callbacks, BannerView.OnPageViewClicked {
+        , ViewTreeObserver.OnGlobalLayoutListener, TabLayout.OnTabSelectedListener, CustomScrollView.Callbacks, BannerView.OnPageViewClicked, View.OnTouchListener {
 
     @BindView(R.id.forum_banner)
     BannerView bannerView;
@@ -116,6 +118,7 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         bannerView.setOnPageViewClicked(this);
         recycleAdapter.setOnItemClickListener(this);
         realLayout.addOnTabSelectedListener(this);
+        customScrollView.setOnTouchListener(this);
     }
 
     @Override
@@ -293,14 +296,36 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(classIfyIdBean -> {
-                    if (mPage <= classIfyIdBean.getPage().getTotalPage()) {
-                        mPage++;
+//                    if (mPage <= classIfyIdBean.getPage().getTotalPage()) {
+//                        mPage++;
                         recycleAdapter.setData(classIfyIdBean.getPage().getList());
-                    } else {
+//                    } else {
 
-                    }
+//                    }
                 }, throwable -> {
 
                 });
+    }
+
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_MOVE: {
+                break;
+            }
+            case MotionEvent.ACTION_DOWN: {
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                if (customScrollView.getChildAt(0).getMeasuredHeight() <= customScrollView.getScrollY() + customScrollView.getHeight()) {
+                    getListData();
+                } else {
+
+                }
+                break;
+            }
+        }
+        return false;
     }
 }

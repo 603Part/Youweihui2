@@ -87,8 +87,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
         }
     }
 
-    public void setData(List<ForumBean.PageBean.ListBean> list) {
-        this.list = list;
+    public void setData(List<ForumBean.PageBean.ListBean> beans) {
+        list.addAll(beans);
         notifyDataSetChanged();
     }
 

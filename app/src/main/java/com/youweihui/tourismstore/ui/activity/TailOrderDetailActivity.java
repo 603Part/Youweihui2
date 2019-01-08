@@ -180,11 +180,15 @@ public class TailOrderDetailActivity extends BaseActivity {
         imgListAdapter.setData(list);
     }
 
-    @OnClick({R.id.tail_order_detail_back})
+    @OnClick({R.id.tail_order_detail_back, R.id.goods_detail_start})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tail_order_detail_back:
                 finish();
+                break;
+            case R.id.goods_detail_start:
+                Intent intent = new Intent(this, OrderWriteActivity.class);
+                startActivity(intent);
                 break;
         }
     }

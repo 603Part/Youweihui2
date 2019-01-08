@@ -80,8 +80,8 @@ public class HomeFragment extends BaseFragment implements HomeTopAdapter.OnItemC
     @BindView(R.id.home_relative2)
     RelativeLayout relativeLayout2;
 
-    @BindView(R.id.home_more2)
-    ImageView more2;
+//    @BindView(R.id.home_more2)
+//    ImageView more2;
 
     private ArrayList<String> imgList;
 
