@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
+import com.youweihui.tourismstore.adapter.EndlessRecyclerOnScrollListener;
 import com.youweihui.tourismstore.adapter.ForumAdapter;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.ForumEntity;
@@ -126,6 +127,13 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         onGlobalLayoutListener = this;
         imgList = new ArrayList<>();
         recycleAdapter = new ForumAdapter(new ArrayList<>());
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                recycleAdapter.setLoadState(recycleAdapter.LOADING);
+                getListData();
+            }
+        });
         setBannerData();
     }
 
@@ -299,11 +307,12 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
 //                    if (mPage <= classIfyIdBean.getPage().getTotalPage()) {
 //                        mPage++;
                         recycleAdapter.setData(classIfyIdBean.getPage().getList());
+                        recycleAdapter.setLoadState(recycleAdapter.LOADING_END);
 //                    } else {
 
 //                    }
                 }, throwable -> {
-
+                    recycleAdapter.setLoadState(recycleAdapter.LOADING_END);
                 });
     }
 
@@ -318,11 +327,11 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                if (customScrollView.getChildAt(0).getMeasuredHeight() <= customScrollView.getScrollY() + customScrollView.getHeight()) {
-                    getListData();
-                } else {
-
-                }
+//                if (customScrollView.getChildAt(0).getMeasuredHeight() <= customScrollView.getScrollY() + customScrollView.getHeight()) {
+//                    getListData();
+//                } else {
+//
+//                }
                 break;
             }
         }
