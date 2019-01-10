@@ -9,8 +9,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_above="@+id/order_write_linear"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/order_write_linear">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,81 +51,6 @@
                     android:src="@mipmap/ic_more" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/order_write_month1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="4月" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/order_write_month1"
-                        android:gravity="center"
-                        android:text="8888" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/order_write_month2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="4月" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/order_write_month2"
-                        android:gravity="center"
-                        android:text="8888" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/order_write_month3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="4月" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/order_write_month3"
-                        android:gravity="center"
-                        android:text="8888" />
-                </RelativeLayout>
-            </LinearLayout>
-
-
-            <com.youweihui.tourismstore.view.CalendarView
-                android:id="@+id/order_write_calendar"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -355,7 +280,6 @@
                 android:layout_height="44dp"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -377,39 +301,121 @@
                     android:paddingLeft="10dp"
                     android:textSize="14dp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/order_write_calendar_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/order_write_month1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="4月" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/order_write_month1"
+                            android:gravity="center"
+                            android:text="8888" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/order_write_month2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="4月" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/order_write_month2"
+                            android:gravity="center"
+                            android:text="8888" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/order_write_month3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="4月" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/order_write_month3"
+                            android:gravity="center"
+                            android:text="8888" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <com.youweihui.tourismstore.view.CalendarView
+                    android:id="@+id/order_write_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/white" />
+            </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/order_write_linear"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
+<LinearLayout
+android:id="@+id/order_write_linear"
+android:layout_width="match_parent"
+android:layout_height="44dp"
+android:layout_alignParentBottom="true"
+android:background="@color/white"
+android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginLeft="15dp"
-            android:text="订单总金额 : " />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginLeft="15dp"
+    android:text="订单总金额 : " />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center|left"
-            android:text="¥ 9999"
-            android:textColor="@color/orange" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_weight="2"
+    android:gravity="center|left"
+    android:text="¥ 9999"
+    android:textColor="@color/orange" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/orange"
-            android:gravity="center"
-            android:text="在线预订"
-            android:textColor="@color/white" />
-    </LinearLayout>
-</RelativeLayout>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/orange"
+    android:gravity="center"
+    android:text="在线预订"
+    android:textColor="@color/white" />
+</LinearLayout></RelativeLayout>

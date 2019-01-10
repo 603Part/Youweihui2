@@ -46,7 +46,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.viewHolder> 
         }
 
         if (list.get(position).getPictureUrl() != null) {
-            GlideUtils.showToCircleImageView(context, list.get(position).getPictureUrl(), holder.imageView2);
+            GlideUtils.showToImageView(context, holder.imageView2,list.get(position).getPictureUrl());
         }
 
         if (list.get(position).getPubdate() != null)

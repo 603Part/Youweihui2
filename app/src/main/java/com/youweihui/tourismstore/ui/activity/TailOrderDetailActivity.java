@@ -188,6 +188,7 @@ public class TailOrderDetailActivity extends BaseActivity {
                 break;
             case R.id.goods_detail_start:
                 Intent intent = new Intent(this, OrderWriteActivity.class);
+                intent.putExtra("1","2");
                 startActivity(intent);
                 break;
         }

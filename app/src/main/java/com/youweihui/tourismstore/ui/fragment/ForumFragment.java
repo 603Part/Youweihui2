@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -237,9 +239,7 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
         int translation = Math.max(y, relativeLayout.getTop());
         relativeLayout2.setTranslationY(translation);
         if (y > relativeLayout.getHeight()) {
-
         } else {
-
         }
     }
 
@@ -298,7 +298,7 @@ public class ForumFragment extends BaseFragment implements ForumAdapter.OnItemCl
                 .subscribe(classIfyIdBean -> {
 //                    if (mPage <= classIfyIdBean.getPage().getTotalPage()) {
 //                        mPage++;
-                        recycleAdapter.setData(classIfyIdBean.getPage().getList());
+                    recycleAdapter.setData(classIfyIdBean.getPage().getList());
 //                    } else {
 
 //                    }

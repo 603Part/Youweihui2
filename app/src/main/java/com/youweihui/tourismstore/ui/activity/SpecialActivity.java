@@ -137,18 +137,23 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
                 break;
             case R.id.special_nav_text1:
                 Intent intent = new Intent(this, TailListActivity.class);
+                intent.putExtra("title",title.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.special_nav_text2:
                 Intent intent1 = new Intent(this, TailListActivity.class);
+                intent1.putExtra("title",title.getText().toString());
                 startActivity(intent1);
                 break;
             case R.id.special_nav_text3:
                 Intent intent2 = new Intent(this, TailListActivity.class);
+                intent2.putExtra("title",title.getText().toString());
+
                 startActivity(intent2);
                 break;
             case R.id.special_nav_text4:
                 Intent intent3 = new Intent(this, TailListActivity.class);
+                intent3.putExtra("title",title.getText().toString());
                 startActivity(intent3);
                 break;
         }
@@ -163,6 +168,7 @@ public class SpecialActivity extends BaseActivity implements BannerView.OnPageVi
     @Override
     public void onItemClick(View v, int position, int type) {
         Intent intent = new Intent(this, TailListActivity.class);
+        intent.putExtra("title",title.getText().toString());
         startActivity(intent);
     }
 

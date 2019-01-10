@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.youweihui.tourismstore.R;
@@ -27,6 +29,9 @@ public class OrderWriteActivity extends BaseActivity {
     @BindView(R.id.order_write_calendar)
     CalendarView calendarView;
 
+    @BindView(R.id.order_write_calendar_linear)
+    LinearLayout linearLayout;
+
     private List<CalenderBean> calenderBeans;
     String date = null;
 
@@ -34,6 +39,9 @@ public class OrderWriteActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_write);
+        if (getIntent().getStringExtra("1").equals("1")){
+            linearLayout.setVisibility(View.GONE);
+        }
         calenderBeans = new ArrayList<>();
         JSONObject jsonObject = null;
         try {

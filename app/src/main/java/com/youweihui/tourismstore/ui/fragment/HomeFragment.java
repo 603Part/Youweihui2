@@ -157,6 +157,7 @@ public class HomeFragment extends BaseFragment implements HomeTopAdapter.OnItemC
         switch (view.getId()) {
             case R.id.home_recommend:
                 Intent intent = new Intent(context, TailListActivity.class);
+                intent.putExtra("title","首页更多");
                 startActivity(intent);
                 break;
         }

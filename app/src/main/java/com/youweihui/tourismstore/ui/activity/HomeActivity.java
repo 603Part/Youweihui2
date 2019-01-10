@@ -18,6 +18,7 @@ import com.youweihui.tourismstore.ui.fragment.ForumFragment;
 import com.youweihui.tourismstore.ui.fragment.HomeFragment;
 import com.youweihui.tourismstore.ui.fragment.MyFragment;
 import com.youweihui.tourismstore.ui.fragment.ShopFragment;
+import com.youweihui.tourismstore.ui.fragment.ShopFragment2;
 import com.youweihui.tourismstore.ui.fragment.TailOrderFragment;
 
 import butterknife.BindView;
@@ -74,7 +75,7 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
     ForumFragment forumFragment;
 
     //商城内容页
-    ShopFragment shopFragment;
+    ShopFragment2 shopFragment;
 
     //个人中心
     MyFragment myFragment;
@@ -86,7 +87,7 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
         homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("home");
         orderFragment = (TailOrderFragment) getSupportFragmentManager().findFragmentByTag("order");
         forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forum");
-        shopFragment = (ShopFragment) getSupportFragmentManager().findFragmentByTag("shop");
+        shopFragment = (ShopFragment2) getSupportFragmentManager().findFragmentByTag("shop");
         myFragment = (MyFragment) getSupportFragmentManager().findFragmentByTag("shop");
         rgHome.setOnCheckedChangeListener(this);
         rbHome.performClick();
@@ -128,7 +129,7 @@ public class HomeActivity extends CheckPermissionsActivity implements RadioGroup
 
             case R.id.group_shop:
                 if (shopFragment == null) {
-                    shopFragment = new ShopFragment();
+                    shopFragment = new ShopFragment2();
                     transaction.add(R.id.home_layout_frame, shopFragment, "shop");
                 } else {
                     transaction.show(shopFragment);

@@ -184,6 +184,7 @@ public class VisaDetailActivity extends BaseActivity {
                 break;
             case R.id.visa_detail_start:
                 Intent intent = new Intent(VisaDetailActivity.this, OrderWriteActivity.class);
+                intent.putExtra("1","1");
                 startActivity(intent);
                 break;
         }

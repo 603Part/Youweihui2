@@ -51,6 +51,9 @@ public class TailListActivity extends BaseActivity {
     @BindView(R.id.tail_list_time)
     TextView time;
 
+    @BindView(R.id.tail_list_edit)
+    TextView edit;
+
     @BindView(R.id.tail_list_recycle)
     RecyclerView recyclerView;
 
@@ -75,6 +78,7 @@ public class TailListActivity extends BaseActivity {
         setContentView(R.layout.activity_tail_list);
         setStatusBarColor(false);
 
+        edit.setText(getIntent().getStringExtra("title"));
         tabList = new ArrayList<>();
         imgList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
