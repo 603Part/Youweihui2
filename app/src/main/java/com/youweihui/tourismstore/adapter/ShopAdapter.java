@@ -97,7 +97,6 @@ public class ShopAdapter extends RecyclerView.Adapter {
             ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("销量最高"));
             ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("价格最优"));
             ((ViewHolder) holder).tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.orange));
-
             ((ViewHolder) holder).recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
             ShopListAdapter shopListAdapter = new ShopListAdapter(context, list);
             ((ViewHolder) holder).recyclerView.setAdapter(shopListAdapter);
@@ -150,6 +149,7 @@ public class ShopAdapter extends RecyclerView.Adapter {
     class ViewHolder3 extends RecyclerView.ViewHolder {
 
         private RecyclerView recyclerView;
+
         private TextView travelTitle;
 
         public ViewHolder3(View itemView) {

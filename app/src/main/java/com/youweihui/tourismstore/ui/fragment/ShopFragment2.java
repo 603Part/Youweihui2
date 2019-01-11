@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopAdapter;
@@ -30,6 +31,9 @@ public class ShopFragment2 extends BaseFragment {
     @BindView(R.id.shop_top_tab)
     TabLayout tabLayout;
 
+    @BindView(R.id.shop_top_linear)
+    LinearLayout linearLayout;
+
     private int type = 1;
 
     private Disposable disposable;
@@ -37,10 +41,6 @@ public class ShopFragment2 extends BaseFragment {
     private RetrofitClient retrofitClient = new RetrofitClient();
 
     private ShopAdapter shopAdapter;
-
-    private int mSuspensionHeight;
-
-    private int mCurrentPosition = 0;
 
     private LinearLayoutManager linearLayoutManager;
 
@@ -75,24 +75,19 @@ public class ShopFragment2 extends BaseFragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                mSuspensionHeight = tabLayout.getHeight();
+
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                View view = linearLayoutManager.findViewByPosition(mCurrentPosition + 1);
-                if (view != null) {
-                    if (view.getTop() <= mSuspensionHeight) {
-                        tabLayout.setY(-(mSuspensionHeight - view.getTop()));
-                    } else {
-                        tabLayout.setY(0);
-                    }
-                }
-
-                if (mCurrentPosition != linearLayoutManager.findFirstVisibleItemPosition()) {
-                    mCurrentPosition = linearLayoutManager.findFirstVisibleItemPosition();
-                    tabLayout.setY(0);
+                int firstPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                if (firstPosition >= shopAdapter.getItemViewType(2)) {
+                    linearLayout.setVisibility(View.VISIBLE);
+                    tabLayout.setVisibility(View.VISIBLE);
+                } else {
+                    linearLayout.setVisibility(View.GONE);
+                    tabLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -103,6 +98,11 @@ public class ShopFragment2 extends BaseFragment {
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shopAdapter);
+
+        tabLayout.addTab(tabLayout.newTab().setText("默认排序"));
+        tabLayout.addTab(tabLayout.newTab().setText("销量最高"));
+        tabLayout.addTab(tabLayout.newTab().setText("价格最优"));
+        tabLayout.setTabMode(TabLayout.MODE_FIXED );
     }
 
     private void getFindRecommendGoodsList() {
