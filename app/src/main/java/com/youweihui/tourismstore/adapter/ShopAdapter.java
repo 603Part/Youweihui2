@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsBean;
@@ -47,6 +48,8 @@ public class ShopAdapter extends RecyclerView.Adapter {
     private int ShopListType = 5;
 
     private int count = 0;
+
+    private int lastItemPosition;
 
     public ShopAdapter(Context context) {
         this.context = context;
@@ -93,13 +96,57 @@ public class ShopAdapter extends RecyclerView.Adapter {
             ((ViewHolder3) holder).recyclerView.setAdapter(travelListAdapter);
         } else if (holder instanceof ViewHolder && list.size() != 0) {
             ((ViewHolder) holder).moreTtitle.setText("更多产品");
-            ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("默认排序"));
-            ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("销量最高"));
-            ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("价格最优"));
-            ((ViewHolder) holder).tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.orange));
-            ((ViewHolder) holder).recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+
             ShopListAdapter shopListAdapter = new ShopListAdapter(context, list);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+            ((ViewHolder) holder).recyclerView.setLayoutManager(gridLayoutManager);
+
             ((ViewHolder) holder).recyclerView.setAdapter(shopListAdapter);
+
+            ((ViewHolder) holder).recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        if (shopListAdapter.isFadeTips() == false && lastItemPosition + 1 == shopListAdapter.getItemCount()) {
+                            Toast.makeText(context, "最下面", Toast.LENGTH_SHORT).show();
+//                        getFindRecommendGoodsList(tabPosition);
+                        }
+                    }
+                }
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    lastItemPosition = gridLayoutManager.findLastVisibleItemPosition();
+                }
+            });
+
+            if (((ViewHolder) holder).tabLayout.getTabCount() == 0){
+                ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("默认排序"));
+                ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("销量最高"));
+                ((ViewHolder) holder).tabLayout.addTab(((ViewHolder) holder).tabLayout.newTab().setText("价格最优"));
+                ((ViewHolder) holder).tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.orange));
+
+                ((ViewHolder) holder).tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tabSelectedListener != null) {
+                            tabSelectedListener.onTabClick(tab.getPosition());
+                        }
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
+            }
         }
     }
 
@@ -172,7 +219,7 @@ public class ShopAdapter extends RecyclerView.Adapter {
     public void setData(List<FindRecommendGoodsListBean.PageBean.ListBean> list) {
         this.list = list;
         count++;
-        notifyDataSetChanged();
+        notifyItemRangeChanged(ShopListType, list.size());
     }
 
     public void setBanner(List<FindRecommendGoodsBean.BannerListBean> bannerListBean) {
@@ -192,5 +239,35 @@ public class ShopAdapter extends RecyclerView.Adapter {
         count++;
         notifyDataSetChanged();
     }
+
+    private OnTabSelectedListener tabSelectedListener;
+
+    public interface OnTabSelectedListener {
+        void onTabClick(int position);
+    }
+
+    public void setOnTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
+        this.tabSelectedListener = tabSelectedListener;
+    }
+
+    public List<FindRecommendGoodsListBean.PageBean.ListBean> getListData() {
+        return list;
+    }
+
+    public boolean isFadeTips() {
+        return fadeTips;
+    }
+
+    public void loadDataList(List<FindRecommendGoodsListBean.PageBean.ListBean> newData, boolean hasMore) {
+        if (newData != null) {
+            list.addAll(newData);
+        }
+        this.hasMore = hasMore;
+        notifyDataSetChanged();
+    }
+
+    private boolean fadeTips = false;
+
+    private boolean hasMore = true;
 }
 

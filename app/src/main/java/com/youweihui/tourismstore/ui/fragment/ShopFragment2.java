@@ -1,11 +1,14 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopAdapter;
@@ -23,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by ${范泽宁} on 2018/12/10.
  */
-public class ShopFragment2 extends BaseFragment {
+public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSelectedListener {
 
     @BindView(R.id.shop_recycle)
     RecyclerView recyclerView;
@@ -34,9 +37,11 @@ public class ShopFragment2 extends BaseFragment {
     @BindView(R.id.shop_top_linear)
     LinearLayout linearLayout;
 
-    private int type = 1;
+    private int page = 1;
 
     private Disposable disposable;
+
+    private int tabPosition;
 
     private RetrofitClient retrofitClient = new RetrofitClient();
 
@@ -52,12 +57,14 @@ public class ShopFragment2 extends BaseFragment {
     @Override
     protected void initView() {
         shopAdapter = new ShopAdapter(context);
+        shopAdapter.setOnTabSelectedListener(this);
     }
 
     @Override
     public void getData() {
         super.getData();
         getFindRecommendGoods();
+        getFindRecommendGoodsList(0);
     }
 
     @Override
@@ -75,7 +82,12 @@ public class ShopFragment2 extends BaseFragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    if (shopAdapter.isFadeTips() == false && lastItemPosition + 1 == shopAdapter.getItemCount()) {
+//                        Toast.makeText(context, "最下面", Toast.LENGTH_SHORT).show();
+////                        getFindRecommendGoodsList(tabPosition);
+//                    }
+//                }
             }
 
             @Override
@@ -89,9 +101,13 @@ public class ShopFragment2 extends BaseFragment {
                     linearLayout.setVisibility(View.GONE);
                     tabLayout.setVisibility(View.GONE);
                 }
+
+                lastItemPosition = linearLayoutManager.findLastVisibleItemPosition();
             }
         });
     }
+
+    private int lastItemPosition;
 
     @Override
     protected void setAttribute() {
@@ -102,37 +118,28 @@ public class ShopFragment2 extends BaseFragment {
         tabLayout.addTab(tabLayout.newTab().setText("默认排序"));
         tabLayout.addTab(tabLayout.newTab().setText("销量最高"));
         tabLayout.addTab(tabLayout.newTab().setText("价格最优"));
-        tabLayout.setTabMode(TabLayout.MODE_FIXED );
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    private void getFindRecommendGoodsList() {
+    private void getFindRecommendGoodsList(int orderby) {
         GoodsListRequest listRequest = new GoodsListRequest();
-        listRequest.setPage(1);
-        listRequest.setLimit(100);
-        listRequest.setOrderby(type);
+        listRequest.setPage(page);
+        listRequest.setLimit(10);
+        listRequest.setOrderby(orderby);
         disposable = retrofitClient.getFindRecommendGoodsList(listRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bean -> {
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    bean.getPage().getList().add(new FindRecommendGoodsListBean.PageBean.ListBean());
-                    shopAdapter.setData(bean.getPage().getList());
+                    if (page < bean.getPage().getTotalPage()) {
+                        page++;
+                        if (shopAdapter.getListData().size() > 0) {
+                            shopAdapter.loadDataList(bean.getPage().getList(), true);
+                        } else {
+                            shopAdapter.setData(bean.getPage().getList());
+                        }
+                    } else {
+                        Toast.makeText(context, "没有更多", Toast.LENGTH_SHORT).show();
+                    }
                 }, throwable -> {
 
                 });
@@ -147,9 +154,24 @@ public class ShopFragment2 extends BaseFragment {
                     shopAdapter.setBanner(bean.getBannerList());
                     shopAdapter.setHot(bean.getHotlist());
                     shopAdapter.setTravel(bean.getTravellist());
-                    getFindRecommendGoodsList();
                 }, throwable -> {
 
                 });
+    }
+
+    @Override
+    public void onTabClick(int position) {
+        tabPosition = position;
+        switch (position) {
+            case 0:
+                getFindRecommendGoodsList(0);
+                break;
+            case 1:
+                getFindRecommendGoodsList(1);
+                break;
+            case 2:
+                getFindRecommendGoodsList(2);
+                break;
+        }
     }
 }

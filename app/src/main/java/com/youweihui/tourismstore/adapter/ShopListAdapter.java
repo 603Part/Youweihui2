@@ -23,7 +23,6 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
 
     private LayoutInflater inflater;
 
-
     public ShopListAdapter(Context mContext, List<FindRecommendGoodsListBean.PageBean.ListBean> listBeans) {
         this.context = mContext;
         this.list = listBeans;
@@ -74,4 +73,24 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
     public void setOnItemClickListener(OnItemClickListener listener) {
         onItemClickListener = listener;
     }
+
+
+
+
+    public boolean isFadeTips() {
+        return fadeTips;
+    }
+
+    public void loadDataList(List<FindRecommendGoodsListBean.PageBean.ListBean> newData, boolean hasMore) {
+        if (newData != null) {
+            list.addAll(newData);
+        }
+        this.hasMore = hasMore;
+        notifyDataSetChanged();
+    }
+
+    private boolean fadeTips = false;
+
+    private boolean hasMore = true;
+
 }
