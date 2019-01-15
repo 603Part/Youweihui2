@@ -3,6 +3,8 @@ package com.youweihui.tourismstore.application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class Application extends MultiDexApplication {
 
     private static Application instance;
@@ -21,5 +23,7 @@ public class Application extends MultiDexApplication {
         super.onCreate();
         instance = this;
         context = this;
+
+        JPushInterface.init(this);
     }
 }
