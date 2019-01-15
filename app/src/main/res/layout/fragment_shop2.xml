@@ -5,63 +5,69 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/shop_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/shop_recycle"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/shop_top_linear"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:background="@color/white"
-                android:visibility="invisible"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="0.5dp"
-                    android:layout_gravity="center"
-                    android:background="@color/gray" />
-
-                <TextView
-                    android:id="@+id/shop_more_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:text="更多产品"
-                    android:textColor="@color/text_color" />
-
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="0.5dp"
-                    android:layout_gravity="center"
-                    android:background="@color/gray" />
-            </LinearLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/shop_top_tab"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/shop_recycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="invisible"
-                app:tabIndicatorColor="@color/orange"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/orange" />
-        </LinearLayout>
+                android:overScrollMode="never" />
 
-    </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/shop_top_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/shop_more_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="更多产品"
+                        android:textColor="@color/text_color" />
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/gray" />
+                </LinearLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/shop_top_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:visibility="invisible"
+                    app:tabIndicatorColor="@color/orange"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/orange" />
+            </LinearLayout>
+
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

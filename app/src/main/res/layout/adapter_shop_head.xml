@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.youweihui.tourismstore.view.BannerView
+        android:id="@+id/adapter_shop_head_banner"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/gray" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/adapter_shop_head_hot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textColor="@color/text_color" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/adapter_shop_head_hot_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/adapter_shop_head_travel_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textColor="@color/text_color" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/adapter_shop_head_travel_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/adapter_shop_head_more_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="更多产品"
+            android:textColor="@color/text_color" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/gray" />
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/adapter_shop_head_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/orange"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/orange" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/line" />
+</LinearLayout>

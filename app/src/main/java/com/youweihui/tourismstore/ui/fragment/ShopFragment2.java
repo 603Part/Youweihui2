@@ -1,6 +1,7 @@
 package com.youweihui.tourismstore.ui.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.youweihui.tourismstore.R;
 import com.youweihui.tourismstore.adapter.ShopAdapter;
+import com.youweihui.tourismstore.adapter.ShopAdapter2;
 import com.youweihui.tourismstore.base.BaseFragment;
 import com.youweihui.tourismstore.bean.FindRecommendGoodsListBean;
 import com.youweihui.tourismstore.net.client.RetrofitClient;
@@ -26,13 +28,16 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by ${范泽宁} on 2018/12/10.
  */
-public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSelectedListener {
+public class ShopFragment2 extends BaseFragment implements ShopAdapter2.OnTabSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.shop_recycle)
     RecyclerView recyclerView;
 
     @BindView(R.id.shop_top_tab)
     TabLayout tabLayout;
+
+    @BindView(R.id.shop_refresh)
+    SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.shop_top_linear)
     LinearLayout linearLayout;
@@ -41,11 +46,11 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
 
     private Disposable disposable;
 
-    private int tabPosition;
+    private int tabPosition = 0;
 
     private RetrofitClient retrofitClient = new RetrofitClient();
 
-    private ShopAdapter shopAdapter;
+    private ShopAdapter2 shopAdapter;
 
     private LinearLayoutManager linearLayoutManager;
 
@@ -56,15 +61,14 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
 
     @Override
     protected void initView() {
-        shopAdapter = new ShopAdapter(context);
-        shopAdapter.setOnTabSelectedListener(this);
+        shopAdapter = new ShopAdapter2(context);
     }
 
     @Override
     public void getData() {
         super.getData();
         getFindRecommendGoods();
-        getFindRecommendGoodsList(0);
+        getFindRecommendGoodsList(tabPosition);
     }
 
     @Override
@@ -78,6 +82,9 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
     @Override
     protected void setOnClick() {
         super.setOnClick();
+        shopAdapter.setOnTabSelectedListener(this);
+        refreshLayout.setOnRefreshListener(this);
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -94,7 +101,7 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int firstPosition = linearLayoutManager.findFirstVisibleItemPosition();
-                if (firstPosition >= shopAdapter.getItemViewType(2)) {
+                if (firstPosition >= shopAdapter.getItemViewType(1)) {
                     linearLayout.setVisibility(View.VISIBLE);
                     tabLayout.setVisibility(View.VISIBLE);
                 } else {
@@ -111,14 +118,50 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
 
     @Override
     protected void setAttribute() {
-        linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager = new GridLayoutManager(context, 2);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shopAdapter);
-
         tabLayout.addTab(tabLayout.newTab().setText("默认排序"));
         tabLayout.addTab(tabLayout.newTab().setText("销量最高"));
         tabLayout.addTab(tabLayout.newTab().setText("价格最优"));
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        refreshLayout.setColorSchemeResources(R.color.theme);
+    }
+
+    @Override
+    public void onTabClick(int position) {
+        tabPosition = position;
+        switch (position) {
+            case 0:
+                page = 1;
+                tabPosition = 0;
+                getFindRecommendGoodsList(tabPosition);
+                break;
+            case 1:
+                page = 1;
+                tabPosition = 1;
+                getFindRecommendGoodsList(tabPosition);
+                break;
+            case 2:
+                page = 1;
+                tabPosition = 2;
+                getFindRecommendGoodsList(tabPosition);
+                break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setFocusable(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        page = 1;
+        shopAdapter.getListData().clear();
+        getFindRecommendGoods();
+        getFindRecommendGoodsList(tabPosition);
     }
 
     private void getFindRecommendGoodsList(int orderby) {
@@ -132,16 +175,16 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
                 .subscribe(bean -> {
                     if (page < bean.getPage().getTotalPage()) {
                         page++;
-                        if (shopAdapter.getListData().size() > 0) {
-                            shopAdapter.loadDataList(bean.getPage().getList(), true);
-                        } else {
-                            shopAdapter.setData(bean.getPage().getList());
-                        }
+                        shopAdapter.setData(bean.getPage().getList());
                     } else {
                         Toast.makeText(context, "没有更多", Toast.LENGTH_SHORT).show();
                     }
-                }, throwable -> {
 
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
+                }, throwable -> {
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
                 });
     }
 
@@ -155,23 +198,8 @@ public class ShopFragment2 extends BaseFragment implements ShopAdapter.OnTabSele
                     shopAdapter.setHot(bean.getHotlist());
                     shopAdapter.setTravel(bean.getTravellist());
                 }, throwable -> {
-
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
                 });
-    }
-
-    @Override
-    public void onTabClick(int position) {
-        tabPosition = position;
-        switch (position) {
-            case 0:
-                getFindRecommendGoodsList(0);
-                break;
-            case 1:
-                getFindRecommendGoodsList(1);
-                break;
-            case 2:
-                getFindRecommendGoodsList(2);
-                break;
-        }
     }
 }

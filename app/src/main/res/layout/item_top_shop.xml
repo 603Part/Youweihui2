@@ -20,25 +20,26 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:textSize="14dp" />
+        android:textColor="@color/text_color"
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/shop_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/orange"
-        android:textSize="14dp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/shop_text2"
-        android:layout_width="60dp"
-        android:layout_height="20dp"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="7dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/shp_shop_bg"

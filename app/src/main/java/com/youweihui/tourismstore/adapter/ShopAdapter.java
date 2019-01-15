@@ -175,9 +175,9 @@ public class ShopAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tabLayout = itemView.findViewById(R.id.shop_more_tab);
-            moreTtitle = itemView.findViewById(R.id.shop_more_title);
-            recyclerView = itemView.findViewById(R.id.adapter_shop_list_recycle);
+//            tabLayout = itemView.findViewById(R.id.shop_more_tab);
+//            moreTtitle = itemView.findViewById(R.id.shop_more_title);
+//            recyclerView = itemView.findViewById(R.id.adapter_shop_list_recycle);
         }
     }
 
